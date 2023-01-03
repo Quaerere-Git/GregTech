@@ -5,6 +5,9 @@ import gregtech.api.GTValues;
 import gregtech.api.GregTechAPI;
 import gregtech.api.block.machines.BlockMachine;
 import gregtech.api.metatileentity.MetaTileEntityHolder;
+import gregtech.api.pipenet.longdist.BlockLongDistancePipe;
+import gregtech.common.pipelike.fluidpipe.longdistance.LDFluidPipeType;
+import gregtech.common.pipelike.itempipe.longdistance.LDItemPipeType;
 import gregtech.api.unification.OreDictUnifier;
 import gregtech.api.unification.material.Material;
 import gregtech.api.unification.material.Materials;
@@ -55,8 +58,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.property.IExtendedBlockState;
-import net.minecraftforge.common.property.IUnlistedProperty;
 import net.minecraftforge.fluids.BlockFluidBase;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -83,6 +84,8 @@ public class MetaBlocks {
     public static final BlockCable[] CABLES = new BlockCable[10];
     public static final BlockFluidPipe[] FLUID_PIPES = new BlockFluidPipe[7];
     public static final BlockItemPipe[] ITEM_PIPES = new BlockItemPipe[8];
+    public static BlockLongDistancePipe LD_ITEM_PIPE;
+    public static BlockLongDistancePipe LD_FLUID_PIPE;
 
     public static BlockBoilerCasing BOILER_CASING;
     public static BlockFireboxCasing BOILER_FIREBOX_CASING;
@@ -149,6 +152,10 @@ public class MetaBlocks {
             ITEM_PIPES[type.ordinal()].setRegistryName(String.format("item_pipe_%s", type.name));
         }
 
+        LD_ITEM_PIPE = new BlockLongDistancePipe(LDItemPipeType.INSTANCE);
+        LD_ITEM_PIPE.setRegistryName("ld_item_pipe");
+        LD_FLUID_PIPE = new BlockLongDistancePipe(LDFluidPipeType.INSTANCE);
+        LD_FLUID_PIPE.setRegistryName("ld_fluid_pipe");
         BOILER_CASING = new BlockBoilerCasing();
         BOILER_CASING.setRegistryName("boiler_casing");
         BOILER_FIREBOX_CASING = new BlockFireboxCasing();
@@ -350,6 +357,8 @@ public class MetaBlocks {
         ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(RUBBER_SAPLING), 0,
                 new ModelResourceLocation(RUBBER_SAPLING.getRegistryName(), "inventory"));
         registerItemModel(PLANKS);
+        registerItemModel(LD_ITEM_PIPE);
+        registerItemModel(LD_FLUID_PIPE);
 
         BOILER_FIREBOX_CASING.onModelRegister();
         WIRE_COIL.onModelRegister();

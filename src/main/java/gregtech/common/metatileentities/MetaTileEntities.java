@@ -36,6 +36,8 @@ import gregtech.common.metatileentities.steam.boiler.SteamSolarBoiler;
 import gregtech.common.metatileentities.steam.multiblockpart.MetaTileEntitySteamHatch;
 import gregtech.common.metatileentities.steam.multiblockpart.MetaTileEntitySteamItemBus;
 import gregtech.common.metatileentities.storage.*;
+import gregtech.common.pipelike.fluidpipe.longdistance.MetaTileEntityLDFluidEndpoint;
+import gregtech.common.pipelike.itempipe.longdistance.MetaTileEntityLDItemEndpoint;
 import gregtech.integration.jei.multiblock.MultiblockInfoCategory;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.Loader;
@@ -222,6 +224,8 @@ public class MetaTileEntities {
     public static MetaTileEntityClipboard CLIPBOARD_TILE;
     public static MetaTileEntityMonitorScreen MONITOR_SCREEN;
     public static MetaTileEntityCentralMonitor CENTRAL_MONITOR;
+    public static MetaTileEntityLDItemEndpoint LONG_DIST_ITEM_ENDPOINT;
+    public static MetaTileEntityLDFluidEndpoint LONG_DIST_FLUID_ENDPOINT;
 
     public static MetaTileEntityConverter[][] ENERGY_CONVERTER = new MetaTileEntityConverter[4][GTValues.V.length];
 
@@ -542,9 +546,9 @@ public class MetaTileEntities {
             ENERGY_OUTPUT_HATCH[i] = registerMetaTileEntity(1225 + i, new MetaTileEntityEnergyHatch(gregtechId("energy_hatch.output." + voltageName), i, 2, true));
 
             if (i >= GTValues.IV && i <= GTValues.UHV) {
-                ENERGY_INPUT_HATCH_4A[i + 1 - GTValues.IV]   = registerMetaTileEntity(1240 + i - GTValues.IV, new MetaTileEntityEnergyHatch(gregtechId("energy_hatch.input_4a." + voltageName), i, 4, false));
-                ENERGY_INPUT_HATCH_16A[i - GTValues.IV]  = registerMetaTileEntity(1245 + i - GTValues.IV, new MetaTileEntityEnergyHatch(gregtechId("energy_hatch.input_16a." + voltageName), i, 16, false));
-                ENERGY_OUTPUT_HATCH_4A[i + 1 - GTValues.IV]  = registerMetaTileEntity(1250 + i - GTValues.IV, new MetaTileEntityEnergyHatch(gregtechId("energy_hatch.output_4a." + voltageName), i, 4, true));
+                ENERGY_INPUT_HATCH_4A[i + 1 - GTValues.IV] = registerMetaTileEntity(1240 + i - GTValues.IV, new MetaTileEntityEnergyHatch(gregtechId("energy_hatch.input_4a." + voltageName), i, 4, false));
+                ENERGY_INPUT_HATCH_16A[i - GTValues.IV] = registerMetaTileEntity(1245 + i - GTValues.IV, new MetaTileEntityEnergyHatch(gregtechId("energy_hatch.input_16a." + voltageName), i, 16, false));
+                ENERGY_OUTPUT_HATCH_4A[i + 1 - GTValues.IV] = registerMetaTileEntity(1250 + i - GTValues.IV, new MetaTileEntityEnergyHatch(gregtechId("energy_hatch.output_4a." + voltageName), i, 4, true));
                 ENERGY_OUTPUT_HATCH_16A[i - GTValues.IV] = registerMetaTileEntity(1255 + i - GTValues.IV, new MetaTileEntityEnergyHatch(gregtechId("energy_hatch.output_16a." + voltageName), i, 16, true));
             }
         }
@@ -732,13 +736,16 @@ public class MetaTileEntities {
         // Energy Converter, IDs 1670-1729
         endPos = GTValues.HT ? ENERGY_CONVERTER[0].length - 1 : Math.min(ENERGY_CONVERTER[0].length - 1, GTValues.UHV + 1);
         int[] amps = {1, 4, 8, 16};
-        for(int i = 0; i < endPos; i++) {
-            for(int j = 0; j < 4; j++) {
+        for (int i = 0; i < endPos; i++) {
+            for (int j = 0; j < 4; j++) {
                 String id = "energy_converter." + GTValues.VN[i].toLowerCase() + "." + amps[j];
                 MetaTileEntityConverter converter = new MetaTileEntityConverter(gregtechId(id), i, amps[j]);
                 ENERGY_CONVERTER[j][i] = registerMetaTileEntity(1670 + j + i * 4, converter);
             }
         }
+
+        LONG_DIST_ITEM_ENDPOINT = registerMetaTileEntity(1730, new MetaTileEntityLDItemEndpoint(gregtechId("ld_item_endpoint")));
+        LONG_DIST_FLUID_ENDPOINT = registerMetaTileEntity(1731, new MetaTileEntityLDFluidEndpoint(gregtechId("ld_fluid_endpoint")));
 
         /*
          * FOR ADDON DEVELOPERS:
@@ -764,21 +771,21 @@ public class MetaTileEntities {
     }
 
     private static void registerSimpleMetaTileEntity(SimpleMachineMetaTileEntity[] machines,
-                                                    int startId,
-                                                    String name,
-                                                    RecipeMap<?> map,
+                                                     int startId,
+                                                     String name,
+                                                     RecipeMap<?> map,
                                                      ICubeRenderer texture,
-                                                    boolean hasFrontFacing,
-                                                    Function<Integer, Integer> tankScalingFunction) {
+                                                     boolean hasFrontFacing,
+                                                     Function<Integer, Integer> tankScalingFunction) {
         registerSimpleMetaTileEntity(machines, startId, name, map, texture, hasFrontFacing, MetaTileEntities::gregtechId, tankScalingFunction);
     }
 
     private static void registerSimpleMetaTileEntity(SimpleMachineMetaTileEntity[] machines,
-                                                    int startId,
-                                                    String name,
-                                                    RecipeMap<?> map,
+                                                     int startId,
+                                                     String name,
+                                                     RecipeMap<?> map,
                                                      ICubeRenderer texture,
-                                                    boolean hasFrontFacing) {
+                                                     boolean hasFrontFacing) {
         registerSimpleMetaTileEntity(machines, startId, name, map, texture, hasFrontFacing, GTUtility.defaultTankSizeFunction);
     }
 

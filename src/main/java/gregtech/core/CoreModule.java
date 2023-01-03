@@ -13,6 +13,8 @@ import gregtech.api.items.gui.PlayerInventoryUIFactory;
 import gregtech.api.metatileentity.MetaTileEntityUIFactory;
 import gregtech.api.modules.GregTechModule;
 import gregtech.api.modules.IGregTechModule;
+import gregtech.api.pipenet.longdist.LongDistanceNetwork;
+import gregtech.api.pipenet.longdist.LongDistancePipeType;
 import gregtech.api.recipes.RecipeMap;
 import gregtech.api.recipes.recipeproperties.TemperatureProperty;
 import gregtech.api.unification.OreDictUnifier;
@@ -167,6 +169,8 @@ public class CoreModule implements IGregTechModule {
 
         proxy.onPreLoad();
         KeyBind.init();
+
+        LongDistancePipeType.init();
     }
 
     @Override
