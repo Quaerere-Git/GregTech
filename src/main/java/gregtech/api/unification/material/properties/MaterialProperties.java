@@ -59,10 +59,14 @@ public class MaterialProperties {
             oldList = new ArrayList<>(propertyMap.values());
             oldList.forEach(p -> p.verifyProperty(this));
         } while (oldList.size() != propertyMap.size());
+    }
 
-        //if (propertyMap.keySet().stream().noneMatch(baseTypes::contains)) {
-        //    throw new IllegalArgumentException("Material must have at least one of: " + baseTypes + " specified!");
-        //}
+    public void verifyLate() {
+        List<IMaterialProperty> oldList;
+        do {
+            oldList = new ArrayList<>(propertyMap.values());
+            oldList.forEach(p -> p.verifyPropertyLate(this));
+        } while (oldList.size() != propertyMap.size());
     }
 
     public void setMaterial(Material material) {

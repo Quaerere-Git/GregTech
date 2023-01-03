@@ -1,103 +1,84 @@
 package gregtech.api.unification.material.properties;
 
 import gregtech.api.unification.material.Material;
-import org.apache.commons.lang3.tuple.Pair;
+import gregtech.api.util.function.TriConsumer;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class OreProperty implements IMaterialProperty<OreProperty> {
+public class OreProperty implements IMaterialProperty {
 
     /**
      * List of Ore byproducts.
      * <p>
      * Default: none, meaning only this property's Material.
      */
-    //@ZenProperty
     private final List<Material> oreByProducts = new ArrayList<>();
 
     /**
-     * Crushed Ore output amount multiplier during Maceration.
+     * Dust output amount from a Crushed Ore.
      * <p>
      * Default: 1 (no multiplier).
      */
-    //@ZenProperty
     private int oreMultiplier;
-
-    /**
-     * Byproducts output amount multiplier during Maceration.
-     * <p>
-     * Default: 1 (no multiplier).
-     */
-    //@ZenProperty
-    private int byProductMultiplier;
 
     /**
      * Should ore block use the emissive texture.
      * <p>
      * Default: false.
      */
-    //@ZenProperty
     private boolean emissive;
 
     /**
      * Material to which smelting of this Ore will result.
      * <p>
-     * Material will have a Dust Property.
+     * Material will have an Ingot Property.
      * Default: none.
      */
-    //@ZenProperty
-    @Nullable
     private Material directSmeltResult;
 
     /**
-     * Material in which this Ore should be washed to give additional output.
+     * Material that this Ore should create in a special Washing step.
+     * Should be one of the 9 "Vitriol" Materials, or a new Material that
+     * is considered part of this same category.
      * <p>
-     * Material will have a Fluid Property.
-     * Default: none.
+     * Any Material you pass here should follow the pattern of "?SO4" where
+     * ? is some metal element.
+     * <p>
+     * Default: none
      */
-    //@ZenProperty
-    @Nullable
-    private Material washedIn;
+    private Material vitriol;
+
+    private TriConsumer<Material, OreProperty, Material> bathRecipe;
 
     /**
-     * The amount of Material that the ore should be washed in
-     * in the Chemical Bath.
+     * Whether or not this Material should generate an actual Ore Block.
      * <p>
-     * Default 100 mb
+     * Default: false
      */
-    private int washedAmount = 100;
+    private boolean doGenerateBlock;
 
-    /**
-     * During Electromagnetic Separation, this Ore will be separated
-     * into this Material and the Material specified by this field.
-     * Limit 2 Materials
-     * <p>
-     * Material will have a Dust Property.
-     * Default: none.
-     */
-    //@ZenProperty
-    private final List<Material> separatedInto = new ArrayList<>();
-
-    public OreProperty(int oreMultiplier, int byProductMultiplier) {
-        this.oreMultiplier = oreMultiplier;
-        this.byProductMultiplier = byProductMultiplier;
-        this.emissive = false;
+    public OreProperty(int oreMultiplier) {
+        this(oreMultiplier, false);
     }
 
-    public OreProperty(int oreMultiplier, int byProductMultiplier, boolean emissive) {
+    public OreProperty(int oreMultiplier, boolean emissive) {
+        this(oreMultiplier, emissive, true);
+    }
+
+    public OreProperty(int oreMultiplier, boolean emissive, boolean doGenerateBlock) {
         this.oreMultiplier = oreMultiplier;
-        this.byProductMultiplier = byProductMultiplier;
         this.emissive = emissive;
+        this.doGenerateBlock = doGenerateBlock;
     }
 
     /**
      * Default values constructor.
      */
     public OreProperty() {
-        this(1, 1);
+        this(1, false, false);
     }
 
     public void setOreMultiplier(int multiplier) {
@@ -108,14 +89,6 @@ public class OreProperty implements IMaterialProperty<OreProperty> {
         return this.oreMultiplier;
     }
 
-    public void setByProductMultiplier(int multiplier) {
-        this.byProductMultiplier = multiplier;
-    }
-
-    public int getByProductMultiplier() {
-        return this.byProductMultiplier;
-    }
-
     public boolean isEmissive() {
         return emissive;
     }
@@ -124,7 +97,7 @@ public class OreProperty implements IMaterialProperty<OreProperty> {
         this.emissive = emissive;
     }
 
-    public void setDirectSmeltResult(@Nullable Material m) {
+    public void setDirectSmeltResult(Material m) {
         this.directSmeltResult = m;
     }
 
@@ -133,26 +106,22 @@ public class OreProperty implements IMaterialProperty<OreProperty> {
         return this.directSmeltResult;
     }
 
-    public void setWashedIn(@Nullable Material m) {
-        this.washedIn = m;
-    }
-
-    public void setWashedIn(@Nullable Material m, int washedAmount) {
-        this.washedIn = m;
-        this.washedAmount = washedAmount;
-    }
-
-    public Pair<Material, Integer> getWashedIn() {
-        return Pair.of(this.washedIn, this.washedAmount);
-    }
-
-    public void setSeparatedInto(Material... materials) {
-        this.separatedInto.addAll(Arrays.asList(materials));
+    public void setVitriol(Material m) {
+        this.vitriol = m;
     }
 
     @Nullable
-    public List<Material> getSeparatedInto() {
-        return this.separatedInto;
+    public Material getVitriol() {
+        return vitriol;
+    }
+
+    public void setBathHandler(TriConsumer<Material, OreProperty, Material> c) {
+        this.bathRecipe = c;
+    }
+
+    @Nullable
+    public TriConsumer<Material, OreProperty, Material> getBathRecipe() {
+        return bathRecipe;
     }
 
     public void setOreByProducts(Material... materials) {
@@ -163,13 +132,34 @@ public class OreProperty implements IMaterialProperty<OreProperty> {
         return this.oreByProducts;
     }
 
+    public boolean doGenerateBlock() {
+        return doGenerateBlock;
+    }
+
+    public void setGenerateBlock(boolean doGenerateBlock) {
+        this.doGenerateBlock = doGenerateBlock;
+    }
+
     @Override
     public void verifyProperty(MaterialProperties properties) {
         properties.ensureSet(PropertyKey.DUST, true);
 
-        if (directSmeltResult != null) directSmeltResult.getProperties().ensureSet(PropertyKey.DUST, true);
-        if (washedIn != null) washedIn.getProperties().ensureSet(PropertyKey.FLUID, true);
-        separatedInto.forEach(m -> m.getProperties().ensureSet(PropertyKey.DUST, true));
-        oreByProducts.forEach(m -> m.getProperties().ensureSet(PropertyKey.DUST, true));
+        if (directSmeltResult != null) directSmeltResult.getProperties().ensureSet(PropertyKey.INGOT, true);
+        if (vitriol != null) vitriol.getProperties().ensureSet(PropertyKey.FLUID, true);
+    }
+
+    @Override
+    public void verifyPropertyLate(MaterialProperties properties) {
+        for (int i = 0; i < oreByProducts.size(); i++) {
+            Material byproduct = oreByProducts.get(i);
+            if (byproduct == null) {
+                byproduct = properties.getMaterial();
+                oreByProducts.set(i, byproduct);
+            } else if (!byproduct.hasProperty(PropertyKey.DUST)) {
+                throw new IllegalArgumentException(
+                        "Ore Byproduct " + byproduct +
+                                " does not have a Dust property, which is not allowed!");
+            }
+        }
     }
 }

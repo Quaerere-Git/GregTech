@@ -65,7 +65,7 @@ public class ConfigHolder {
 
         @Config.Comment({"Minimum distance between Long Distance Item Pipe Endpoints", "Default: 50"})
         public int ldItemPipeMinDistance = 50;
-        
+
         @Config.Comment({"Minimum distance betweeb Long Distance Fluid Pipe Endpoints", "Default: 50"})
         public int ldFluidPipeMinDistance = 50;
 
@@ -210,6 +210,18 @@ public class ConfigHolder {
 
         @Config.Comment({"Whether to make the recipe for the EBF Controller harder.", "Default: false"})
         public boolean harderEBFControllerRecipe = false;
+
+        @Config.Comment({"Whether Wrenches should require Plates instead of Ingots to craft.", "Default: false"})
+        public boolean plateWrenches = false;
+
+        @Config.Comment({"Whether the smelting of Ores should be nerfed to promote extended Ore Processing.",
+                "It is STRONGLY recommended that you leave this config ON, as ore processing is balanced around it.",
+                "Default: true"})
+        public boolean harderOreProcessing = true;
+
+        @Config.Comment({"Whether Ore Byproducts should get a chance boost the higher the tier of the machine",
+                "Default: false"})
+        public boolean oreByproductChancePerTier = false;
     }
 
     public static class CompatibilityOptions {
@@ -465,6 +477,9 @@ public class ConfigHolder {
 
         @Config.Name("NanoSaber Options")
         public NanoSaber nanoSaber = new NanoSaber();
+
+        @Config.Comment({"Should EV and IV Drills be enabled, which may cause lag when used on low-end devices?", "Default: true"})
+        public boolean enableHighTierDrills = true;
 
         @Config.Comment("NightVision Goggles Voltage Tier. Default: 1 (LV)")
         @Config.RangeInt(min = 0, max = 14)
