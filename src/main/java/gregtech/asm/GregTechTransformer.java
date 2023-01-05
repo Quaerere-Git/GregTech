@@ -157,6 +157,12 @@ public class GregTechTransformer implements IClassTransformer, Opcodes {
                 DamageSourceVisitor.handleClassNode(classNode).accept(classWriter);
                 return classWriter.toByteArray();
             }
+            case MinecraftVisitor.TARGET_CLASS_NAME: {
+                ClassReader classReader = new ClassReader(basicClass);
+                ClassWriter classWriter = new ClassWriter(ClassWriter.COMPUTE_FRAMES | ClassWriter.COMPUTE_MAXS);
+                classReader.accept(new TargetClassVisitor(classWriter, MinecraftVisitor.PROCESS_KEY_F3, MinecraftVisitor::new), ClassReader.EXPAND_FRAMES);
+                return classWriter.toByteArray();
+            }
         }
         if (EnchantmentCanApplyVisitor.CLASS_TO_MAPPING_MAP.containsKey(internalName)) {
             ObfMapping methodMapping = EnchantmentCanApplyVisitor.CLASS_TO_MAPPING_MAP.get(internalName);
