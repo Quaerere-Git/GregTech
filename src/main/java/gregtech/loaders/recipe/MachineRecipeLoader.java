@@ -546,9 +546,9 @@ public class MachineRecipeLoader {
 
         RecipeMaps.ASSEMBLER_RECIPES.recipeBuilder().EUt(16).inputs(MetaBlocks.METAL_CASING.getItemVariant(MetalCasingType.STEEL_SOLID)).fluidInputs(Materials.Polytetrafluoroethylene.getFluid(216)).notConsumable(new IntCircuitIngredient(6)).outputs(MetaBlocks.METAL_CASING.getItemVariant(MetalCasingType.PTFE_INERT_CASING)).duration(50).buildAndRegister();
 
-        RecipeMaps.ASSEMBLER_RECIPES.recipeBuilder().EUt(VA[LuV]).input(OrePrefix.wireGtDouble, Materials.IndiumTinBariumTitaniumCuprate, 32).input(OrePrefix.foil, Materials.NiobiumTitanium, 32).fluidInputs(Materials.Trinium.getFluid(GTValues.L * 24)).outputs(MetaBlocks.FUSION_CASING.getItemVariant(BlockFusionCasing.CasingType.SUPERCONDUCTOR_COIL)).duration(100).buildAndRegister();
-        RecipeMaps.ASSEMBLER_RECIPES.recipeBuilder().EUt(VA[ZPM]).input(OrePrefix.wireGtDouble, Materials.UraniumRhodiumDinaquadide, 16).input(OrePrefix.foil, Materials.NiobiumTitanium, 16).fluidInputs(Materials.Trinium.getFluid(GTValues.L * 16)).outputs(MetaBlocks.FUSION_CASING.getItemVariant(BlockFusionCasing.CasingType.SUPERCONDUCTOR_COIL)).duration(100).buildAndRegister();
-        RecipeMaps.ASSEMBLER_RECIPES.recipeBuilder().EUt(VA[UV]).input(OrePrefix.wireGtDouble, Materials.EnrichedNaquadahTriniumEuropiumDuranide, 8).input(OrePrefix.foil, Materials.NiobiumTitanium, 8).fluidInputs(Materials.Trinium.getFluid(GTValues.L * 8)).outputs(MetaBlocks.FUSION_CASING.getItemVariant(BlockFusionCasing.CasingType.SUPERCONDUCTOR_COIL)).duration(100).buildAndRegister();
+        RecipeMaps.ASSEMBLER_RECIPES.recipeBuilder().EUt(VA[LuV]).input(OrePrefix.wireGtDouble, Materials.IndiumTinBariumTitaniumCuprate, 32).input(OrePrefix.foil, Materials.NiobiumTitanium, 32).fluidInputs(Materials.Trinium.getFluid(GTValues.L * 4)).outputs(MetaBlocks.FUSION_CASING.getItemVariant(BlockFusionCasing.CasingType.SUPERCONDUCTOR_COIL)).duration(100).buildAndRegister();
+        RecipeMaps.ASSEMBLER_RECIPES.recipeBuilder().EUt(VA[ZPM]).input(OrePrefix.wireGtDouble, Materials.UraniumRhodiumDinaquadide, 16).input(OrePrefix.foil, Materials.NiobiumTitanium, 16).fluidInputs(Materials.Trinium.getFluid(GTValues.L * 2)).outputs(MetaBlocks.FUSION_CASING.getItemVariant(BlockFusionCasing.CasingType.SUPERCONDUCTOR_COIL)).duration(100).buildAndRegister();
+        RecipeMaps.ASSEMBLER_RECIPES.recipeBuilder().EUt(VA[UV]).input(OrePrefix.wireGtDouble, Materials.EnrichedNaquadahTriniumEuropiumDuranide, 8).input(OrePrefix.foil, Materials.NiobiumTitanium, 8).fluidInputs(Materials.Trinium.getFluid(GTValues.L)).outputs(MetaBlocks.FUSION_CASING.getItemVariant(BlockFusionCasing.CasingType.SUPERCONDUCTOR_COIL)).duration(100).buildAndRegister();
 
         RecipeMaps.ASSEMBLER_RECIPES.recipeBuilder().EUt(VA[ZPM]).inputs(MetaBlocks.FUSION_CASING.getItemVariant(BlockFusionCasing.CasingType.SUPERCONDUCTOR_COIL)).inputs(MetaItems.FIELD_GENERATOR_IV.getStackForm(2)).inputs(MetaItems.ELECTRIC_PUMP_IV.getStackForm()).inputs(MetaItems.NEUTRON_REFLECTOR.getStackForm(2)).input(OrePrefix.circuit, MarkerMaterials.Tier.LuV, 4).input(OrePrefix.pipeSmallFluid, Materials.Naquadah, 4).input(OrePrefix.plate, Materials.Europium, 4).fluidInputs(Materials.VanadiumGallium.getFluid(GTValues.L * 4)).outputs(MetaBlocks.FUSION_CASING.getItemVariant(BlockFusionCasing.CasingType.FUSION_COIL)).duration(100).cleanroom(CleanroomType.CLEANROOM).buildAndRegister();
 
@@ -816,7 +816,7 @@ public class MachineRecipeLoader {
         FLUID_HEATER_RECIPES.recipeBuilder().duration(32).EUt(4)
                 .fluidInputs(Ice.getFluid(L))
                 .circuitMeta(1)
-                .fluidOutputs(Water.getFluid(L)).buildAndRegister();
+                .fluidOutputs(Water.getFluid(1000)).buildAndRegister();
 
         FLUID_SOLIDFICATION_RECIPES.recipeBuilder()
                 .fluidInputs(Toluene.getFluid(100))

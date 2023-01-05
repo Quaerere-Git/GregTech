@@ -162,6 +162,18 @@ public class MaterialFlags {
             .requireProps(PropertyKey.DUST)
             .build();
 
+    /**
+     * Add this to your Material if you want to have its Ore Calcite heated in a Blast Furnace for more output. Already listed are:
+     * Iron, Pyrite, PigIron, WroughtIron.
+     */
+    public static final MaterialFlag BLAST_FURNACE_CALCITE_DOUBLE = new MaterialFlag.Builder("blast_furnace_calcite_double")
+            .requireProps(PropertyKey.DUST)
+            .build();
+
+    public static final MaterialFlag BLAST_FURNACE_CALCITE_TRIPLE = new MaterialFlag.Builder("blast_furnace_calcite_triple")
+            .requireProps(PropertyKey.DUST)
+            .build();
+
     /////////////////
     //    FLUID    //
     /////////////////

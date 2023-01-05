@@ -133,7 +133,7 @@ public class AcidRecipes {
                 .notConsumable(new IntCircuitIngredient(1))
                 .input(dust, Phosphorus, 2)
                 .fluidInputs(Oxygen.getFluid(5000))
-                .output(dust, PhosphorusPentoxide, 14)
+                .output(dust, PhosphorusPentoxide, 7)
                 .duration(40).EUt(VA[LV]).buildAndRegister();
 
         CHEMICAL_RECIPES.recipeBuilder()

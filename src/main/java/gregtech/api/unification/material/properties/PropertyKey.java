@@ -6,7 +6,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Map;
 
-public class PropertyKey<T extends IMaterialProperty<T>> {
+public class PropertyKey<T extends IMaterialProperty> {
 
     private static final Map<Class<?>, PropertyKey<?>> propertyKeys = new Object2ObjectOpenHashMap<>();
 
@@ -48,7 +48,7 @@ public class PropertyKey<T extends IMaterialProperty<T>> {
         }
     }
 
-    public T cast(IMaterialProperty<?> property) {
+    public T cast(IMaterialProperty property) {
         return this.type.cast(property);
     }
 

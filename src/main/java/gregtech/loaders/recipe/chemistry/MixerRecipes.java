@@ -4,6 +4,7 @@ import gregtech.api.recipes.ModHandler;
 import gregtech.api.recipes.ingredients.IntCircuitIngredient;
 import gregtech.api.unification.OreDictUnifier;
 import gregtech.api.unification.stack.UnificationEntry;
+import org.apache.logging.log4j.core.pattern.AbstractStyleNameConverter;
 
 import static gregtech.api.GTValues.*;
 import static gregtech.api.recipes.RecipeMaps.MIXER_RECIPES;
@@ -149,6 +150,14 @@ public class MixerRecipes {
                 .input(dust, Electrum)
                 .notConsumable(new IntCircuitIngredient(1))
                 .output(dust, Electrotine)
+                .buildAndRegister();
+
+        MIXER_RECIPES.recipeBuilder().duration(100).EUt(VA[LV])
+                .input(dust, Gold)
+                .input(dust, Redstone)
+                .notConsumable(new IntCircuitIngredient(4))
+                .fluidInputs(Glowstone.getFluid(L / 4))
+                .output(dust, Glowstone, 2)
                 .buildAndRegister();
 
         MIXER_RECIPES.recipeBuilder().duration(200).EUt(VA[ULV])

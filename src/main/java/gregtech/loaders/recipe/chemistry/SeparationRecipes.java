@@ -319,13 +319,13 @@ public class SeparationRecipes {
         // Electrolyzer
         ELECTROLYZER_RECIPES.recipeBuilder()
                 .input(dust, SodiumBisulfate, 7)
-                .fluidOutputs(SodiumPersulfate.getFluid(500))
+                .fluidOutputs(SodiumPersulfate.getFluid(1000))
                 .fluidOutputs(Hydrogen.getFluid(1000))
                 .duration(150).EUt(VA[LV]).buildAndRegister();
 
         ELECTROLYZER_RECIPES.recipeBuilder()
                 .input(dust, PotassiumBisulfate, 7)
-                .fluidOutputs(PotassiumPersulfate.getFluid(500))
+                .fluidOutputs(PotassiumPersulfate.getFluid(1000))
                 .fluidOutputs(Hydrogen.getFluid(1000))
                 .duration(150).EUt(VA[LV]).buildAndRegister();
 

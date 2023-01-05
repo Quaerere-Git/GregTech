@@ -113,6 +113,61 @@ public class MaterialInfoLoader {
                 new MaterialStack(Materials.Rubber, M * 2))); // plate
 
 
+        OreDictUnifier.registerOre(MetaTileEntities.TRANSFORMER[0].getStackForm(), new ItemMaterialInfo(
+                new MaterialStack(Materials.WroughtIron, M * 8), // plate
+                new MaterialStack(Materials.RedAlloy, M * 3), // single cable
+                new MaterialStack(Materials.Tin, M / 2), // upper single cable
+                new MaterialStack(Materials.Rubber, M * 7))); // plate
+
+        OreDictUnifier.registerOre(MetaTileEntities.TRANSFORMER[1].getStackForm(), new ItemMaterialInfo(
+                new MaterialStack(Materials.Steel, M * 8), // plate
+                new MaterialStack(Materials.Tin, M * 3), // single cable
+                new MaterialStack(Materials.Copper, M / 2), // upper single cable
+                new MaterialStack(Materials.Rubber, M * 7))); // plate
+
+        OreDictUnifier.registerOre(MetaTileEntities.TRANSFORMER[2].getStackForm(), new ItemMaterialInfo(
+                new MaterialStack(Materials.Aluminium, M * 8), // plate
+                new MaterialStack(Materials.Copper, M * 3), // single cable
+                new MaterialStack(Materials.Gold, M / 2), // upper single cable
+                new MaterialStack(Materials.Rubber, M * 7))); // plate
+
+        OreDictUnifier.registerOre(MetaTileEntities.TRANSFORMER[3].getStackForm(), new ItemMaterialInfo(
+                new MaterialStack(Materials.StainlessSteel, M * 8), // plate
+                new MaterialStack(Materials.Gold, M * 3), // single cable
+                new MaterialStack(Materials.Aluminium, M / 2), // upper single cable
+                new MaterialStack(Materials.Rubber, M * 7))); // plate
+
+        OreDictUnifier.registerOre(MetaTileEntities.TRANSFORMER[4].getStackForm(), new ItemMaterialInfo(
+                new MaterialStack(Materials.Titanium, M * 8), // plate
+                new MaterialStack(Materials.Aluminium, M * 3), // single cable
+                new MaterialStack(Materials.Platinum, M / 2), // upper single cable
+                new MaterialStack(Materials.Rubber, M * 7))); // plate
+
+        OreDictUnifier.registerOre(MetaTileEntities.TRANSFORMER[5].getStackForm(), new ItemMaterialInfo(
+                new MaterialStack(Materials.TungstenSteel, M * 8), // plate
+                new MaterialStack(Materials.Platinum, M * 3), // single cable
+                new MaterialStack(Materials.NiobiumTitanium, M / 2), // upper single cable
+                new MaterialStack(Materials.Rubber, M * 7))); // plate
+
+        OreDictUnifier.registerOre(MetaTileEntities.TRANSFORMER[6].getStackForm(), new ItemMaterialInfo(
+                new MaterialStack(Materials.RhodiumPlatedPalladium, M * 8), // plate
+                new MaterialStack(Materials.NiobiumTitanium, M * 3), // single cable
+                new MaterialStack(Materials.VanadiumGallium, M / 2), // upper single cable
+                new MaterialStack(Materials.Rubber, M * 7))); // plate
+
+        OreDictUnifier.registerOre(MetaTileEntities.TRANSFORMER[7].getStackForm(), new ItemMaterialInfo(
+                new MaterialStack(Materials.NaquadahAlloy, M * 8), // plate
+                new MaterialStack(Materials.VanadiumGallium, M * 3), // single cable
+                new MaterialStack(Materials.YttriumBariumCuprate, M / 2), // upper single cable
+                new MaterialStack(Materials.Rubber, M * 7))); // plate
+
+        OreDictUnifier.registerOre(MetaTileEntities.TRANSFORMER[8].getStackForm(), new ItemMaterialInfo(
+                new MaterialStack(Materials.Darmstadtium, M * 8), // plate
+                new MaterialStack(Materials.YttriumBariumCuprate, M * 3), // single cable
+                new MaterialStack(Materials.Europium, M / 2), // upper single cable
+                new MaterialStack(Materials.Rubber, M * 7))); // plate
+
+
         OreDictUnifier.registerOre(MetaTileEntities.ENERGY_INPUT_HATCH[3].getStackForm(), new ItemMaterialInfo(
                 new MaterialStack(Materials.StainlessSteel, M * 8), // plate
                 new MaterialStack(Materials.Gold, M * 2), // single cable
@@ -137,6 +192,77 @@ public class MaterialInfoLoader {
                 new MaterialStack(Materials.NeodymiumMagnetic, M / 2) // rod
         ));
 
+        OreDictUnifier.registerOre(MetaTileEntities.ENERGY_INPUT_HATCH[6].getStackForm(), new ItemMaterialInfo(
+                new MaterialStack(Materials.RhodiumPlatedPalladium, M * 8), // plate
+                new MaterialStack(Materials.NiobiumTitanium, 3 * M), // single cable + spring
+                new MaterialStack(Materials.Rubber, M * 6), // plate
+                new MaterialStack(Materials.Osmiridium, M * 2), // fine wire
+                new MaterialStack(Materials.SamariumMagnetic, M / 2) // rod
+        ));
+
+        OreDictUnifier.registerOre(MetaTileEntities.ENERGY_INPUT_HATCH[7].getStackForm(), new ItemMaterialInfo(
+                new MaterialStack(Materials.NaquadahAlloy, M * 8), // plate
+                new MaterialStack(Materials.VanadiumGallium, 3 * M), // single cable + spring
+                new MaterialStack(Materials.Rubber, M * 6), // plate
+                new MaterialStack(Materials.Europium, M * 4), // fine wire
+                new MaterialStack(Materials.SamariumMagnetic, M) // rod
+        ));
+
+        OreDictUnifier.registerOre(MetaTileEntities.ENERGY_INPUT_HATCH[8].getStackForm(), new ItemMaterialInfo(
+                new MaterialStack(Materials.Darmstadtium, M * 8), // plate
+                new MaterialStack(Materials.YttriumBariumCuprate, 3 * M), // single cable + spring
+                new MaterialStack(Materials.Rubber, M * 6), // plate
+                new MaterialStack(Materials.Tritanium, M * 4), // fine wire
+                new MaterialStack(Materials.SamariumMagnetic, M) // rod
+        ));
+
+
+        OreDictUnifier.registerOre(MetaTileEntities.ENERGY_INPUT_HATCH_4A[0].getStackForm(), new ItemMaterialInfo(
+                new MaterialStack(Materials.Titanium, M * 16), // plate
+                new MaterialStack(Materials.Aluminium, M * 9), // single cable
+                new MaterialStack(Materials.Platinum, M / 2), // upper single cable
+                new MaterialStack(Materials.Rubber, M * 11), // plate
+                new MaterialStack(Materials.TungstenSteel, M * 4), // fine wire
+                new MaterialStack(Materials.NeodymiumMagnetic, M) // rod
+        ));
+
+        OreDictUnifier.registerOre(MetaTileEntities.ENERGY_INPUT_HATCH_4A[1].getStackForm(), new ItemMaterialInfo(
+                new MaterialStack(Materials.TungstenSteel, M * 16), // plate
+                new MaterialStack(Materials.Platinum, M * 9), // single cable
+                new MaterialStack(Materials.NiobiumTitanium, M / 2), // upper single cable
+                new MaterialStack(Materials.Rubber, M * 11), // plate
+                new MaterialStack(Materials.Iridium, M * 4), // fine wire
+                new MaterialStack(Materials.NeodymiumMagnetic, M) // rod
+        ));
+
+        OreDictUnifier.registerOre(MetaTileEntities.ENERGY_INPUT_HATCH_4A[2].getStackForm(), new ItemMaterialInfo(
+                new MaterialStack(Materials.RhodiumPlatedPalladium, M * 16), // plate
+                new MaterialStack(Materials.NiobiumTitanium, M * 10), // single cable
+                new MaterialStack(Materials.VanadiumGallium, M / 2), // upper single cable
+                new MaterialStack(Materials.Rubber, M * 13), // plate
+                new MaterialStack(Materials.Osmiridium, M * 4), // fine wire
+                new MaterialStack(Materials.SamariumMagnetic, M) // rod
+        ));
+
+        OreDictUnifier.registerOre(MetaTileEntities.ENERGY_INPUT_HATCH_4A[3].getStackForm(), new ItemMaterialInfo(
+                new MaterialStack(Materials.NaquadahAlloy, M * 16), // plate
+                new MaterialStack(Materials.VanadiumGallium, M * 10), // single cable
+                new MaterialStack(Materials.YttriumBariumCuprate, M / 2), // upper single cable
+                new MaterialStack(Materials.Rubber, M * 13), // plate
+                new MaterialStack(Materials.Europium, M * 6), // fine wire
+                new MaterialStack(Materials.SamariumMagnetic, M * 3 / 2) // rod
+        ));
+
+        OreDictUnifier.registerOre(MetaTileEntities.ENERGY_INPUT_HATCH_4A[4].getStackForm(), new ItemMaterialInfo(
+                new MaterialStack(Materials.Darmstadtium, M * 16), // plate
+                new MaterialStack(Materials.YttriumBariumCuprate, M * 10), // single cable
+                new MaterialStack(Materials.Europium, M / 2), // upper single cable
+                new MaterialStack(Materials.Rubber, M * 13), // plate
+                new MaterialStack(Materials.Tritanium, M * 6), // fine wire
+                new MaterialStack(Materials.SamariumMagnetic, M * 3 / 2) // rod
+        ));
+
+
         OreDictUnifier.registerOre(MetaTileEntities.ENERGY_OUTPUT_HATCH[3].getStackForm(), new ItemMaterialInfo(
                 new MaterialStack(Materials.StainlessSteel, M * 8), // plate
                 new MaterialStack(Materials.Gold, 3 * M), // single cable + spring
@@ -160,6 +286,77 @@ public class MaterialInfoLoader {
                 new MaterialStack(Materials.Iridium, M * 2), // fine wire
                 new MaterialStack(Materials.NeodymiumMagnetic, M / 2) // rod
         ));
+
+        OreDictUnifier.registerOre(MetaTileEntities.ENERGY_OUTPUT_HATCH[6].getStackForm(), new ItemMaterialInfo(
+                new MaterialStack(Materials.RhodiumPlatedPalladium, M * 8), // plate
+                new MaterialStack(Materials.NiobiumTitanium, 5 * M), // single cable + spring
+                new MaterialStack(Materials.Rubber, M * 2), // plate
+                new MaterialStack(Materials.Osmiridium, M * 2), // fine wire
+                new MaterialStack(Materials.SamariumMagnetic, M / 2) // rod
+        ));
+
+        OreDictUnifier.registerOre(MetaTileEntities.ENERGY_OUTPUT_HATCH[7].getStackForm(), new ItemMaterialInfo(
+                new MaterialStack(Materials.NaquadahAlloy, M * 8), // plate
+                new MaterialStack(Materials.VanadiumGallium, 5 * M), // single cable + spring
+                new MaterialStack(Materials.Rubber, M * 2), // plate
+                new MaterialStack(Materials.Europium, M * 4), // fine wire
+                new MaterialStack(Materials.SamariumMagnetic, M) // rod
+        ));
+
+        OreDictUnifier.registerOre(MetaTileEntities.ENERGY_OUTPUT_HATCH[8].getStackForm(), new ItemMaterialInfo(
+                new MaterialStack(Materials.Darmstadtium, M * 8), // plate
+                new MaterialStack(Materials.YttriumBariumCuprate, 5 * M), // single cable + spring
+                new MaterialStack(Materials.Rubber, M * 2), // plate
+                new MaterialStack(Materials.Tritanium, M * 4), // fine wire
+                new MaterialStack(Materials.SamariumMagnetic, M) // rod
+        ));
+
+
+        OreDictUnifier.registerOre(MetaTileEntities.ENERGY_OUTPUT_HATCH_4A[0].getStackForm(), new ItemMaterialInfo(
+                new MaterialStack(Materials.Titanium, M * 16), // plate
+                new MaterialStack(Materials.Aluminium, M * 10), // single cable
+                new MaterialStack(Materials.Platinum, M / 2), // upper single cable
+                new MaterialStack(Materials.Rubber, M * 9), // plate
+                new MaterialStack(Materials.TungstenSteel, M * 4), // fine wire
+                new MaterialStack(Materials.NeodymiumMagnetic, M) // rod
+        ));
+
+        OreDictUnifier.registerOre(MetaTileEntities.ENERGY_OUTPUT_HATCH_4A[1].getStackForm(), new ItemMaterialInfo(
+                new MaterialStack(Materials.TungstenSteel, M * 16), // plate
+                new MaterialStack(Materials.Platinum, M * 10), // single cable
+                new MaterialStack(Materials.NiobiumTitanium, M / 2), // upper single cable
+                new MaterialStack(Materials.Rubber, M * 9), // plate
+                new MaterialStack(Materials.Iridium, M * 4), // fine wire
+                new MaterialStack(Materials.NeodymiumMagnetic, M) // rod
+        ));
+
+        OreDictUnifier.registerOre(MetaTileEntities.ENERGY_OUTPUT_HATCH_4A[2].getStackForm(), new ItemMaterialInfo(
+                new MaterialStack(Materials.RhodiumPlatedPalladium, M * 16), // plate
+                new MaterialStack(Materials.NiobiumTitanium, M * 12), // single cable
+                new MaterialStack(Materials.VanadiumGallium, M / 2), // upper single cable
+                new MaterialStack(Materials.Rubber, M * 9), // plate
+                new MaterialStack(Materials.Osmiridium, M * 4), // fine wire
+                new MaterialStack(Materials.SamariumMagnetic, M) // rod
+        ));
+
+        OreDictUnifier.registerOre(MetaTileEntities.ENERGY_OUTPUT_HATCH_4A[3].getStackForm(), new ItemMaterialInfo(
+                new MaterialStack(Materials.NaquadahAlloy, M * 16), // plate
+                new MaterialStack(Materials.VanadiumGallium, M * 12), // single cable
+                new MaterialStack(Materials.YttriumBariumCuprate, M / 2), // upper single cable
+                new MaterialStack(Materials.Rubber, M * 9), // plate
+                new MaterialStack(Materials.Europium, M * 6), // fine wire
+                new MaterialStack(Materials.SamariumMagnetic, M * 3 / 2) // rod
+        ));
+
+        OreDictUnifier.registerOre(MetaTileEntities.ENERGY_OUTPUT_HATCH_4A[4].getStackForm(), new ItemMaterialInfo(
+                new MaterialStack(Materials.Darmstadtium, M * 16), // plate
+                new MaterialStack(Materials.YttriumBariumCuprate, M * 12), // single cable
+                new MaterialStack(Materials.Europium, M / 2), // upper single cable
+                new MaterialStack(Materials.Rubber, M * 9), // plate
+                new MaterialStack(Materials.Tritanium, M * 6), // fine wire
+                new MaterialStack(Materials.SamariumMagnetic, M * 3 / 2) // rod
+        ));
+
 
         OreDictUnifier.registerOre(MetaBlocks.CLEANROOM_CASING.getItemVariant(BlockCleanroomCasing.CasingType.PLASCRETE), new ItemMaterialInfo(
                 new MaterialStack(Materials.Steel, M), // frame / 2

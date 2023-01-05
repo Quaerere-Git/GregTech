@@ -64,6 +64,10 @@ public class VariantActiveBlock<T extends Enum<T> & IStringSerializable> extends
         return super.getState(variant).withProperty(ACTIVE_DEPRECATED, false);
     }
 
+    public IBlockState getState2(T variant) {
+        return getDefaultState().withProperty(VARIANT, variant);
+    }
+
     @Override
     @SuppressWarnings("deprecation")
     protected boolean canSilkHarvest() {

@@ -4,7 +4,7 @@ import it.unimi.dsi.fastutil.objects.Object2IntArrayMap;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import net.minecraft.enchantment.Enchantment;
 
-public class ToolProperty implements IMaterialProperty<ToolProperty> {
+public class ToolProperty implements IMaterialProperty {
 
     /**
      * Speed of tools made from this Material.

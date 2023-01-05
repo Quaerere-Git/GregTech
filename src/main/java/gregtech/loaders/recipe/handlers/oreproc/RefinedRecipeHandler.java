@@ -8,6 +8,7 @@ import gregtech.api.unification.material.properties.OreProperty;
 import gregtech.api.unification.material.properties.PropertyKey;
 import gregtech.api.unification.ore.OrePrefix;
 import gregtech.api.unification.stack.UnificationEntry;
+import gregtech.common.ConfigHolder;
 import gregtech.api.util.GTUtility;
 
 import static gregtech.api.GTValues.LV;
@@ -21,6 +22,7 @@ import static gregtech.loaders.recipe.handlers.oreproc.OreRecipeHandler.processM
 public class RefinedRecipeHandler {
 
     public static void processRefined(OrePrefix prefix, Material material, OreProperty property) {
+        boolean chancePerTier = ConfigHolder.recipes.oreByproductChancePerTier;
         // Get the byproduct used for this step
         Material byproduct = GTUtility.getOrDefault(property.getOreByProducts(), 0, material);
         OrePrefix byproductPrefix = byproduct.hasProperty(PropertyKey.GEM) ? gem : dust;
@@ -41,7 +43,7 @@ public class RefinedRecipeHandler {
                 .input(crushedRefined, material)
                 .output(dust, material, property.getOreMultiplier())
                 .chancedOutput(dust, material, property.getOreMultiplier(), 3333, 0)
-                .chancedOutput(byproductPrefix, byproduct, byproductMultiplier, 2500, 0)
+                .chancedOutput(byproductPrefix, byproduct, byproductMultiplier, 2500, chancePerTier ? 1500 : 0)
                 .duration(400).EUt(2).buildAndRegister();
 
         // Hard Hammer crafting recipe

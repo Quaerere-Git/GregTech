@@ -445,7 +445,7 @@ public abstract class ParallelLogic {
         int recipeEUt = currentRecipe.getEUt();
         if (recipeEUt != 0) {
             int limitByVoltage = Math.abs((int) (maxVoltage / recipeEUt));
-            int parallelizable = Math.min(limitByVoltage, limitByOutput);
+            int parallelizable = Math.min(limitByVoltage, Math.min(multiplierByInputs, limitByOutput));
             if (parallelizable != 0)
                 recipeBuilder.append(currentRecipe, parallelizable, false);
         } else if (limitByOutput > 0) {

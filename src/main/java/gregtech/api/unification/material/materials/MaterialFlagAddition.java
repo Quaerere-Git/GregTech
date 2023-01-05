@@ -62,8 +62,11 @@ public class MaterialFlagAddition {
         oreProp.setVitriol(CyanVitriol);
         oreProp.setBathHandler(BathRecipeHandler::bathCyanVitriol);
 
+        oreProp = Palladium.getProperty(PropertyKey.ORE);
+        oreProp.setOreByProducts(Palladium, InertMetalMixture);
+
         oreProp = Platinum.getProperty(PropertyKey.ORE);
-        oreProp.setOreByProducts(Nickel, Nickel, Cobalt, Platinum);
+        oreProp.setOreByProducts(Nickel, RarestMetalMixture, Cobalt, Platinum);
         oreProp.setVitriol(CyanVitriol);
 
         oreProp = Plutonium239.getProperty(PropertyKey.ORE);

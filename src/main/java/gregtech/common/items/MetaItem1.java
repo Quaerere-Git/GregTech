@@ -183,9 +183,34 @@ public class MetaItem1 extends StandardMetaItem {
         ELECTRIC_MOTOR_HV = addItem(129, "electric.motor.hv");
         ELECTRIC_MOTOR_EV = addItem(130, "electric.motor.ev");
         ELECTRIC_MOTOR_IV = addItem(131, "electric.motor.iv");
-        ELECTRIC_MOTOR_LuV = addItem(132, "electric.motor.luv");
-        ELECTRIC_MOTOR_ZPM = addItem(133, "electric.motor.zpm");
-        ELECTRIC_MOTOR_UV = addItem(134, "electric.motor.uv");
+        ELECTRIC_MOTOR_LuV = addItem(132, "electric.motor.luv").setMaterialInfo(
+                new ItemMaterialInfo(
+                        new MaterialStack(Materials.SamariumMagnetic, M),
+                        new MaterialStack(Materials.HSSS, M * 5 / 2),
+                        new MaterialStack(Materials.Ruridit, M * 8),
+                        new MaterialStack(Materials.NiobiumTitanium, M),
+                        new MaterialStack(Materials.Rubber, M * 2)
+                )
+        );
+        ELECTRIC_MOTOR_ZPM = addItem(133, "electric.motor.zpm").setMaterialInfo(
+                new ItemMaterialInfo(
+                        new MaterialStack(Materials.SamariumMagnetic, M),
+                        new MaterialStack(Materials.Osmiridium, M * 5),
+                        new MaterialStack(Materials.Europium, M * 12),
+                        new MaterialStack(Materials.VanadiumGallium, M),
+                        new MaterialStack(Materials.Rubber, M * 2)
+                )
+        );
+        ELECTRIC_MOTOR_UV = addItem(134, "electric.motor.uv").setMaterialInfo(
+                new ItemMaterialInfo(
+                        new MaterialStack(Materials.SamariumMagnetic, M),
+                        new MaterialStack(Materials.Tritanium, M * 5),
+                        new MaterialStack(Materials.Americium, M * 16),
+                        new MaterialStack(Materials.YttriumBariumCuprate, M),
+                        new MaterialStack(Materials.Rubber, M * 2),
+                        new MaterialStack(Materials.Naquadria, M * 4)
+                )
+        );
         ELECTRIC_MOTOR_UHV = addItem(135, "electric.motor.uhv").setInvisible(GTValues.HT);
         ELECTRIC_MOTOR_UEV = addItem(136, "electric.motor.uev").setInvisible(GTValues.HT);
         ELECTRIC_MOTOR_UIV = addItem(137, "electric.motor.uiv").setInvisible(GTValues.HT);
@@ -213,15 +238,41 @@ public class MetaItem1 extends StandardMetaItem {
             lines.add(I18n.format("metaitem.electric.pump.tooltip"));
             lines.add(I18n.format("gregtech.universal.tooltip.fluid_transfer_rate", 1280 * 64 * 4 / 20));
         }));
-        ELECTRIC_PUMP_LuV = addItem(147, "electric.pump.luv").addComponents(new TooltipBehavior(lines -> {
+        ELECTRIC_PUMP_LuV = addItem(147, "electric.pump.luv").setMaterialInfo(
+                new ItemMaterialInfo(new MaterialStack(Materials.SamariumMagnetic, M),
+                        new MaterialStack(Materials.HSSS, M * 19 / 2),
+                        new MaterialStack(Materials.Ruridit, M * 8),
+                        new MaterialStack(Materials.NiobiumTitanium, M * 3),
+                        new MaterialStack(Materials.Rubber, M * 5)
+                )
+        ).addComponents(new TooltipBehavior(lines -> {
             lines.add(I18n.format("metaitem.electric.pump.tooltip"));
             lines.add(I18n.format("gregtech.universal.tooltip.fluid_transfer_rate", 1280 * 64 * 16 / 20));
         }));
-        ELECTRIC_PUMP_ZPM = addItem(148, "electric.pump.zpm").addComponents(new TooltipBehavior(lines -> {
+        ELECTRIC_PUMP_ZPM = addItem(148, "electric.pump.zpm").setMaterialInfo(
+                new ItemMaterialInfo(new MaterialStack(Materials.SamariumMagnetic, M),
+                        new MaterialStack(Materials.Osmiridium, M * 12),
+                        new MaterialStack(Materials.Europium, M * 12),
+                        new MaterialStack(Materials.VanadiumGallium, M * 2),
+                        new MaterialStack(Materials.Rubber, M * 6),
+                        new MaterialStack(Materials.Polybenzimidazole, M * 3)
+                )
+        ).addComponents(new TooltipBehavior(lines -> {
             lines.add(I18n.format("metaitem.electric.pump.tooltip"));
             lines.add(I18n.format("gregtech.universal.tooltip.fluid_transfer_rate", 1280 * 64 * 64 / 20));
         }));
-        ELECTRIC_PUMP_UV = addItem(149, "electric.pump.uv").addComponents(new TooltipBehavior(lines -> {
+        ELECTRIC_PUMP_UV = addItem(149, "electric.pump.uv").setMaterialInfo(
+                new ItemMaterialInfo(
+                        new MaterialStack(Materials.SamariumMagnetic, M),
+                        new MaterialStack(Materials.Tritanium, M * 8),
+                        new MaterialStack(Materials.NaquadahAlloy, M * 4),
+                        new MaterialStack(Materials.Americium, M * 16),
+                        new MaterialStack(Materials.YttriumBariumCuprate, M * 2),
+                        new MaterialStack(Materials.Rubber, M * 8),
+                        new MaterialStack(Materials.Naquadah, M * 6),
+                        new MaterialStack(Materials.Naquadria, M * 8)
+                )
+        ).addComponents(new TooltipBehavior(lines -> {
             lines.add(I18n.format("metaitem.electric.pump.tooltip"));
             lines.add(I18n.format("gregtech.universal.tooltip.fluid_transfer_rate", 1280 * 64 * 64 * 4 / 20));
         }));
@@ -267,15 +318,40 @@ public class MetaItem1 extends StandardMetaItem {
             lines.add(I18n.format("metaitem.conveyor.module.tooltip"));
             lines.add(I18n.format("gregtech.universal.tooltip.item_transfer_rate_stacks", 8));
         }));
-        CONVEYOR_MODULE_LuV = addItem(162, "conveyor.module.luv").addComponents(new TooltipBehavior(lines -> {
+        CONVEYOR_MODULE_LuV = addItem(162, "conveyor.module.luv").setMaterialInfo(
+                new ItemMaterialInfo(
+                        new MaterialStack(Materials.SamariumMagnetic, M * 2),
+                        new MaterialStack(Materials.HSSS, M * 10),
+                        new MaterialStack(Materials.Ruridit, M * 16),
+                        new MaterialStack(Materials.NiobiumTitanium, M * 3),
+                        new MaterialStack(Materials.Rubber, M * 14)
+                )
+        ).addComponents(new TooltipBehavior(lines -> {
             lines.add(I18n.format("metaitem.conveyor.module.tooltip"));
             lines.add(I18n.format("gregtech.universal.tooltip.item_transfer_rate_stacks", 16));
         }));
-        CONVEYOR_MODULE_ZPM = addItem(163, "conveyor.module.zpm").addComponents(new TooltipBehavior(lines -> {
+        CONVEYOR_MODULE_ZPM = addItem(163, "conveyor.module.zpm").setMaterialInfo(
+                new ItemMaterialInfo(
+                        new MaterialStack(Materials.SamariumMagnetic, M * 2),
+                        new MaterialStack(Materials.Osmiridium, M * 15),
+                        new MaterialStack(Materials.Europium, M * 24),
+                        new MaterialStack(Materials.VanadiumGallium, M * 3),
+                        new MaterialStack(Materials.Rubber, M * 22)
+                )
+        ).addComponents(new TooltipBehavior(lines -> {
             lines.add(I18n.format("metaitem.conveyor.module.tooltip"));
             lines.add(I18n.format("gregtech.universal.tooltip.item_transfer_rate_stacks", 16));
         }));
-        CONVEYOR_MODULE_UV = addItem(164, "conveyor.module.uv").addComponents(new TooltipBehavior(lines -> {
+        CONVEYOR_MODULE_UV = addItem(164, "conveyor.module.uv").setMaterialInfo(
+                new ItemMaterialInfo(
+                        new MaterialStack(Materials.SamariumMagnetic, M * 2),
+                        new MaterialStack(Materials.Tritanium, M * 15),
+                        new MaterialStack(Materials.Americium, M * 32),
+                        new MaterialStack(Materials.YttriumBariumCuprate, M * 3),
+                        new MaterialStack(Materials.Rubber, M * 30),
+                        new MaterialStack(Materials.Naquadria, M * 12)
+                )
+        ).addComponents(new TooltipBehavior(lines -> {
             lines.add(I18n.format("metaitem.conveyor.module.tooltip"));
             lines.add(I18n.format("gregtech.universal.tooltip.item_transfer_rate_stacks", 16));
         }));
@@ -306,9 +382,34 @@ public class MetaItem1 extends StandardMetaItem {
         ELECTRIC_PISTON_HV = addItem(174, "electric.piston.hv");
         ELECTRIC_PISTON_EV = addItem(175, "electric.piston.ev");
         ELECTRIC_PISTON_IV = addItem(176, "electric.piston.iv");
-        ELECTRIC_PISTON_LUV = addItem(177, "electric.piston.luv");
-        ELECTRIC_PISTON_ZPM = addItem(178, "electric.piston.zpm");
-        ELECTRIC_PISTON_UV = addItem(179, "electric.piston.uv");
+        ELECTRIC_PISTON_LUV = addItem(177, "electric.piston.luv").setMaterialInfo(
+                new ItemMaterialInfo(
+                        new MaterialStack(Materials.SamariumMagnetic, M),
+                        new MaterialStack(Materials.HSSS, M * 7),
+                        new MaterialStack(Materials.Ruridit, M * 8),
+                        new MaterialStack(Materials.NiobiumTitanium, M * 2),
+                        new MaterialStack(Materials.Rubber, M * 12)
+                )
+        );
+        ELECTRIC_PISTON_ZPM = addItem(178, "electric.piston.zpm").setMaterialInfo(
+                new ItemMaterialInfo(
+                        new MaterialStack(Materials.SamariumMagnetic, M),
+                        new MaterialStack(Materials.Osmiridium, M * 10),
+                        new MaterialStack(Materials.Europium, M * 12),
+                        new MaterialStack(Materials.VanadiumGallium, M * 2),
+                        new MaterialStack(Materials.Rubber, M * 20)
+                )
+        );
+        ELECTRIC_PISTON_UV = addItem(179, "electric.piston.uv").setMaterialInfo(
+                new ItemMaterialInfo(
+                        new MaterialStack(Materials.SamariumMagnetic, M),
+                        new MaterialStack(Materials.Tritanium, M * 10),
+                        new MaterialStack(Materials.Americium, M * 16),
+                        new MaterialStack(Materials.YttriumBariumCuprate, M * 2),
+                        new MaterialStack(Materials.Rubber, M * 28),
+                        new MaterialStack(Materials.Naquadria, M * 8)
+                )
+        );
         ELECTRIC_PISTON_UHV = addItem(180, "electric.piston.uhv").setInvisible(GTValues.HT);
         ELECTRIC_PISTON_UEV = addItem(181, "electric.piston.uev").setInvisible(GTValues.HT);
         ELECTRIC_PISTON_UIV = addItem(182, "electric.piston.uiv").setInvisible(GTValues.HT);
@@ -336,15 +437,40 @@ public class MetaItem1 extends StandardMetaItem {
             lines.add(I18n.format("metaitem.robot.arm.tooltip"));
             lines.add(I18n.format("gregtech.universal.tooltip.item_transfer_rate_stacks", 8));
         }));
-        ROBOT_ARM_LuV = addItem(192, "robot.arm.luv").addComponents(new TooltipBehavior(lines -> {
+        ROBOT_ARM_LuV = addItem(192, "robot.arm.luv").setMaterialInfo(
+                new ItemMaterialInfo(
+                        new MaterialStack(Materials.SamariumMagnetic, M * 3),
+                        new MaterialStack(Materials.HSSS, M * 24),
+                        new MaterialStack(Materials.Ruridit, M * 24),
+                        new MaterialStack(Materials.NiobiumTitanium, M * 6),
+                        new MaterialStack(Materials.Rubber, M * 12)
+                )
+        ).addComponents(new TooltipBehavior(lines -> {
             lines.add(I18n.format("metaitem.robot.arm.tooltip"));
             lines.add(I18n.format("gregtech.universal.tooltip.item_transfer_rate_stacks", 16));
         }));
-        ROBOT_ARM_ZPM = addItem(193, "robot.arm.zpm").addComponents(new TooltipBehavior(lines -> {
+        ROBOT_ARM_ZPM = addItem(193, "robot.arm.zpm").setMaterialInfo(
+                new ItemMaterialInfo(
+                        new MaterialStack(Materials.SamariumMagnetic, M * 3),
+                        new MaterialStack(Materials.Osmiridium, M * 39),
+                        new MaterialStack(Materials.Europium, M * 36),
+                        new MaterialStack(Materials.VanadiumGallium, M * 6),
+                        new MaterialStack(Materials.Rubber, M * 12)
+                )
+        ).addComponents(new TooltipBehavior(lines -> {
             lines.add(I18n.format("metaitem.robot.arm.tooltip"));
             lines.add(I18n.format("gregtech.universal.tooltip.item_transfer_rate_stacks", 16));
         }));
-        ROBOT_ARM_UV = addItem(194, "robot.arm.uv").addComponents(new TooltipBehavior(lines -> {
+        ROBOT_ARM_UV = addItem(194, "robot.arm.uv").setMaterialInfo(
+                new ItemMaterialInfo(
+                        new MaterialStack(Materials.SamariumMagnetic, M * 3),
+                        new MaterialStack(Materials.Tritanium, M * 39),
+                        new MaterialStack(Materials.Americium, M * 48),
+                        new MaterialStack(Materials.YttriumBariumCuprate, M * 6),
+                        new MaterialStack(Materials.Rubber, M * 12),
+                        new MaterialStack(Materials.Naquadria, M * 20)
+                )
+        ).addComponents(new TooltipBehavior(lines -> {
             lines.add(I18n.format("metaitem.robot.arm.tooltip"));
             lines.add(I18n.format("gregtech.universal.tooltip.item_transfer_rate_stacks", 16));
         }));
@@ -375,9 +501,40 @@ public class MetaItem1 extends StandardMetaItem {
         FIELD_GENERATOR_HV = addItem(204, "field.generator.hv");
         FIELD_GENERATOR_EV = addItem(205, "field.generator.ev");
         FIELD_GENERATOR_IV = addItem(206, "field.generator.iv");
-        FIELD_GENERATOR_LuV = addItem(207, "field.generator.luv");
-        FIELD_GENERATOR_ZPM = addItem(208, "field.generator.zpm");
-        FIELD_GENERATOR_UV = addItem(209, "field.generator.uv");
+        FIELD_GENERATOR_LuV = addItem(207, "field.generator.luv").setMaterialInfo(
+                new ItemMaterialInfo(
+                        new MaterialStack(Materials.HSSS, M * 16),
+                        new MaterialStack(Materials.SamariumMagnetic, M * 2),
+                        new MaterialStack(Materials.Ruridit, M * 24),
+                        new MaterialStack(Materials.Palladium, M * 48),
+                        new MaterialStack(Materials.IndiumTinBariumTitaniumCuprate, M * 16),
+                        new MaterialStack(Materials.NiobiumTitanium, M * 8),
+                        new MaterialStack(Materials.Rubber, M * 16)
+                )
+        );
+        FIELD_GENERATOR_ZPM = addItem(208, "field.generator.zpm").setMaterialInfo(
+                new ItemMaterialInfo(
+                        new MaterialStack(Materials.NaquadahAlloy, M * 12),
+                        new MaterialStack(Materials.Osmiridium, M * 18),
+                        new MaterialStack(Materials.SamariumMagnetic, M * 2),
+                        new MaterialStack(Materials.Europium, M * 24),
+                        new MaterialStack(Materials.Trinium, M * 48),
+                        new MaterialStack(Materials.UraniumRhodiumDinaquadide, 16),
+                        new MaterialStack(Materials.VanadiumGallium, M * 8),
+                        new MaterialStack(Materials.Rubber, M * 16)
+                )
+        );
+        FIELD_GENERATOR_UV = addItem(209, "field.generator.uv").setMaterialInfo(
+                new ItemMaterialInfo(
+                        new MaterialStack(Materials.Tritanium, M * 30),
+                        new MaterialStack(Materials.SamariumMagnetic, M * 2),
+                        new MaterialStack(Materials.Americium, M * 32),
+                        new MaterialStack(Materials.Naquadria, M * 64),
+                        new MaterialStack(Materials.EnrichedNaquadahTriniumEuropiumDuranide, M * 16),
+                        new MaterialStack(Materials.YttriumBariumCuprate, M * 8),
+                        new MaterialStack(Materials.Rubber, M * 16)
+                )
+        );
         FIELD_GENERATOR_UHV = addItem(210, "field.generator.uhv").setInvisible(GTValues.HT);
         FIELD_GENERATOR_UEV = addItem(211, "field.generator.uev").setInvisible(GTValues.HT);
         FIELD_GENERATOR_UIV = addItem(212, "field.generator.uiv").setInvisible(GTValues.HT);
@@ -390,9 +547,37 @@ public class MetaItem1 extends StandardMetaItem {
         EMITTER_HV = addItem(219, "emitter.hv");
         EMITTER_EV = addItem(220, "emitter.ev");
         EMITTER_IV = addItem(221, "emitter.iv");
-        EMITTER_LuV = addItem(222, "emitter.luv");
-        EMITTER_ZPM = addItem(223, "emitter.zpm");
-        EMITTER_UV = addItem(224, "emitter.uv");
+        EMITTER_LuV = addItem(222, "emitter.luv").setMaterialInfo(
+                new ItemMaterialInfo(
+                        new MaterialStack(Materials.HSSS, M * 4),
+                        new MaterialStack(Materials.SamariumMagnetic, M),
+                        new MaterialStack(Materials.Ruridit, M * 12),
+                        new MaterialStack(Materials.Palladium, M * 24),
+                        new MaterialStack(Materials.NiobiumTitanium, M * 3),
+                        new MaterialStack(Materials.Rubber, M * 6)
+                )
+        );
+        EMITTER_ZPM = addItem(223, "emitter.zpm").setMaterialInfo(
+                new ItemMaterialInfo(
+                        new MaterialStack(Materials.NaquadahAlloy, M * 2),
+                        new MaterialStack(Materials.Osmiridium, M * 9),
+                        new MaterialStack(Materials.SamariumMagnetic, M),
+                        new MaterialStack(Materials.Europium, M * 12),
+                        new MaterialStack(Materials.Trinium, M * 24),
+                        new MaterialStack(Materials.VanadiumGallium, M * 3),
+                        new MaterialStack(Materials.Rubber, M * 6)
+                )
+        );
+        EMITTER_UV = addItem(224, "emitter.uv").setMaterialInfo(
+                new ItemMaterialInfo(
+                        new MaterialStack(Materials.Tritanium, M * 11),
+                        new MaterialStack(Materials.SamariumMagnetic, M),
+                        new MaterialStack(Materials.Americium, M * 16),
+                        new MaterialStack(Materials.Naquadria, M * 32),
+                        new MaterialStack(Materials.YttriumBariumCuprate, M * 3),
+                        new MaterialStack(Materials.Rubber, M * 6)
+                )
+        );
         EMITTER_UHV = addItem(225, "emitter.uhv").setInvisible(GTValues.HT);
         EMITTER_UEV = addItem(226, "emitter.uev").setInvisible(GTValues.HT);
         EMITTER_UIV = addItem(227, "emitter.uiv").setInvisible(GTValues.HT);
@@ -405,9 +590,37 @@ public class MetaItem1 extends StandardMetaItem {
         SENSOR_HV = addItem(234, "sensor.hv");
         SENSOR_EV = addItem(235, "sensor.ev");
         SENSOR_IV = addItem(236, "sensor.iv");
-        SENSOR_LuV = addItem(237, "sensor.luv");
-        SENSOR_ZPM = addItem(238, "sensor.zpm");
-        SENSOR_UV = addItem(239, "sensor.uv");
+        SENSOR_LuV = addItem(237, "sensor.luv").setMaterialInfo(
+                new ItemMaterialInfo(
+                        new MaterialStack(Materials.HSSS, M * 4),
+                        new MaterialStack(Materials.SamariumMagnetic, M),
+                        new MaterialStack(Materials.Ruridit, M * 12),
+                        new MaterialStack(Materials.Palladium, M * 24),
+                        new MaterialStack(Materials.NiobiumTitanium, M * 3),
+                        new MaterialStack(Materials.Rubber, M * 6)
+                )
+        );
+        SENSOR_ZPM = addItem(238, "sensor.zpm").setMaterialInfo(
+                new ItemMaterialInfo(
+                        new MaterialStack(Materials.NaquadahAlloy, M * 2),
+                        new MaterialStack(Materials.Osmiridium, M * 9),
+                        new MaterialStack(Materials.SamariumMagnetic, M),
+                        new MaterialStack(Materials.Europium, M * 12),
+                        new MaterialStack(Materials.Trinium, M * 24),
+                        new MaterialStack(Materials.VanadiumGallium, M * 3),
+                        new MaterialStack(Materials.Rubber, M * 6)
+                )
+        );
+        SENSOR_UV = addItem(239, "sensor.uv").setMaterialInfo(
+                new ItemMaterialInfo(
+                        new MaterialStack(Materials.Tritanium, M * 11),
+                        new MaterialStack(Materials.SamariumMagnetic, M),
+                        new MaterialStack(Materials.Americium, M * 16),
+                        new MaterialStack(Materials.Naquadria, M * 24),
+                        new MaterialStack(Materials.YttriumBariumCuprate, M * 3),
+                        new MaterialStack(Materials.Rubber, M * 6)
+                )
+        );
         SENSOR_UHV = addItem(240, "sensor.uhv").setInvisible(GTValues.HT);
         SENSOR_UEV = addItem(241, "sensor.uev").setInvisible(GTValues.HT);
         SENSOR_UIV = addItem(242, "sensor.uiv").setInvisible(GTValues.HT);
@@ -435,15 +648,41 @@ public class MetaItem1 extends StandardMetaItem {
             lines.add(I18n.format("metaitem.fluid.regulator.tooltip"));
             lines.add(I18n.format("gregtech.universal.tooltip.fluid_transfer_rate", 1280 * 64 * 4 / 20));
         }));
-        FLUID_REGULATOR_LUV = addItem(252, "fluid.regulator.luv").addComponents(new TooltipBehavior(lines -> {
+        FLUID_REGULATOR_LUV = addItem(252, "fluid.regulator.luv").setMaterialInfo(
+                new ItemMaterialInfo(new MaterialStack(Materials.SamariumMagnetic, M),
+                        new MaterialStack(Materials.HSSS, M * 19 / 2),
+                        new MaterialStack(Materials.Ruridit, M * 8),
+                        new MaterialStack(Materials.NiobiumTitanium, M * 3),
+                        new MaterialStack(Materials.Rubber, M * 5)
+                )
+        ).addComponents(new TooltipBehavior(lines -> {
             lines.add(I18n.format("metaitem.fluid.regulator.tooltip"));
             lines.add(I18n.format("gregtech.universal.tooltip.fluid_transfer_rate", 1280 * 64 * 16 / 20));
         }));
-        FLUID_REGULATOR_ZPM = addItem(253, "fluid.regulator.zpm").addComponents(new TooltipBehavior(lines -> {
+        FLUID_REGULATOR_ZPM = addItem(253, "fluid.regulator.zpm").setMaterialInfo(
+                new ItemMaterialInfo(new MaterialStack(Materials.SamariumMagnetic, M),
+                        new MaterialStack(Materials.Osmiridium, M * 12),
+                        new MaterialStack(Materials.Europium, M * 12),
+                        new MaterialStack(Materials.VanadiumGallium, M * 2),
+                        new MaterialStack(Materials.Rubber, M * 6),
+                        new MaterialStack(Materials.Polybenzimidazole, M * 3)
+                )
+        ).addComponents(new TooltipBehavior(lines -> {
             lines.add(I18n.format("metaitem.fluid.regulator.tooltip"));
             lines.add(I18n.format("gregtech.universal.tooltip.fluid_transfer_rate", 1280 * 64 * 64 / 20));
         }));
-        FLUID_REGULATOR_UV = addItem(254, "fluid.regulator.uv").addComponents(new TooltipBehavior(lines -> {
+        FLUID_REGULATOR_UV = addItem(254, "fluid.regulator.uv").setMaterialInfo(
+                new ItemMaterialInfo(
+                        new MaterialStack(Materials.SamariumMagnetic, M),
+                        new MaterialStack(Materials.Tritanium, M * 8),
+                        new MaterialStack(Materials.NaquadahAlloy, M * 4),
+                        new MaterialStack(Materials.Americium, M * 16),
+                        new MaterialStack(Materials.YttriumBariumCuprate, M * 2),
+                        new MaterialStack(Materials.Rubber, M * 8),
+                        new MaterialStack(Materials.Naquadah, M * 6),
+                        new MaterialStack(Materials.Naquadria, M * 4)
+                )
+        ).addComponents(new TooltipBehavior(lines -> {
             lines.add(I18n.format("metaitem.fluid.regulator.tooltip"));
             lines.add(I18n.format("gregtech.universal.tooltip.fluid_transfer_rate", 1280 * 64 * 64 * 4/ 20));
         }));

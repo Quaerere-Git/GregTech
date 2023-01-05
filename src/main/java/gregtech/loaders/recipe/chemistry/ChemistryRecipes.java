@@ -45,7 +45,7 @@ public class ChemistryRecipes {
 
         VACUUM_RECIPES.recipeBuilder()
                 .fluidInputs(Water.getFluid(1000))
-                .fluidOutputs(Ice.getFluid(1000))
+                .fluidOutputs(Ice.getFluid(L))
                 .duration(50).EUt(VA[LV]).buildAndRegister();
 
         VACUUM_RECIPES.recipeBuilder()

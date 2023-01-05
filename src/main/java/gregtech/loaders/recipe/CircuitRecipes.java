@@ -148,8 +148,8 @@ public class CircuitRecipes {
 
         CHEMICAL_RECIPES.recipeBuilder()
                 .input(HIGH_POWER_INTEGRATED_CIRCUIT_WAFER)
-                .input(dust, IndiumGalliumPhosphide, 8)
-                .fluidInputs(Naquadah.getFluid(L * 4))
+                .input(dust, IndiumGalliumPhosphide, 4)
+                .fluidInputs(Naquadah.getFluid(L * 2))
                 .output(ULTRA_HIGH_POWER_INTEGRATED_CIRCUIT_WAFER)
                 .cleanroom(CleanroomType.CLEANROOM)
                 .duration(1200).EUt(VA[LuV]).buildAndRegister();
@@ -172,8 +172,8 @@ public class CircuitRecipes {
 
         CHEMICAL_RECIPES.recipeBuilder()
                 .input(NANO_CENTRAL_PROCESSING_UNIT_WAFER)
-                .input(dust, IndiumGalliumPhosphide)
-                .fluidInputs(Radon.getFluid(50))
+                .input(dust, IndiumGalliumPhosphide, 2)
+                .fluidInputs(Radon.getFluid(250))
                 .output(QUBIT_CENTRAL_PROCESSING_UNIT_WAFER)
                 .cleanroom(CleanroomType.CLEANROOM)
                 .duration(1200).EUt(VA[EV]).buildAndRegister();
@@ -188,8 +188,8 @@ public class CircuitRecipes {
         CUTTER_RECIPES.recipeBuilder().duration(900).EUt(VA[MV]).input(ULTRA_LOW_POWER_INTEGRATED_CIRCUIT_WAFER).output(ULTRA_LOW_POWER_INTEGRATED_CIRCUIT, 6).buildAndRegister();
         CUTTER_RECIPES.recipeBuilder().duration(900).EUt(VA[HV]).input(LOW_POWER_INTEGRATED_CIRCUIT_WAFER).output(LOW_POWER_INTEGRATED_CIRCUIT, 4).cleanroom(CleanroomType.CLEANROOM).buildAndRegister();
         CUTTER_RECIPES.recipeBuilder().duration(900).EUt(VA[EV]).input(POWER_INTEGRATED_CIRCUIT_WAFER).output(POWER_INTEGRATED_CIRCUIT, 4).cleanroom(CleanroomType.CLEANROOM).buildAndRegister();
-        CUTTER_RECIPES.recipeBuilder().duration(900).EUt(VA[IV]).input(HIGH_POWER_INTEGRATED_CIRCUIT_WAFER).output(HIGH_POWER_INTEGRATED_CIRCUIT, 2).cleanroom(CleanroomType.CLEANROOM).buildAndRegister();
-        CUTTER_RECIPES.recipeBuilder().duration(900).EUt(VA[LuV]).input(ULTRA_HIGH_POWER_INTEGRATED_CIRCUIT_WAFER).output(ULTRA_HIGH_POWER_INTEGRATED_CIRCUIT, 2).cleanroom(CleanroomType.CLEANROOM).buildAndRegister();
+        CUTTER_RECIPES.recipeBuilder().duration(900).EUt(VA[IV]).input(HIGH_POWER_INTEGRATED_CIRCUIT_WAFER).output(HIGH_POWER_INTEGRATED_CIRCUIT, 4).cleanroom(CleanroomType.CLEANROOM).buildAndRegister();
+        CUTTER_RECIPES.recipeBuilder().duration(900).EUt(VA[LuV]).input(ULTRA_HIGH_POWER_INTEGRATED_CIRCUIT_WAFER).output(ULTRA_HIGH_POWER_INTEGRATED_CIRCUIT, 4).cleanroom(CleanroomType.CLEANROOM).buildAndRegister();
         CUTTER_RECIPES.recipeBuilder().duration(900).EUt(192).input(NOR_MEMORY_CHIP_WAFER).output(NOR_MEMORY_CHIP, 16).cleanroom(CleanroomType.CLEANROOM).buildAndRegister();
         CUTTER_RECIPES.recipeBuilder().duration(900).EUt(192).input(NAND_MEMORY_CHIP_WAFER).output(NAND_MEMORY_CHIP, 32).cleanroom(CleanroomType.CLEANROOM).buildAndRegister();
         CUTTER_RECIPES.recipeBuilder().duration(900).EUt(VA[MV]).input(CENTRAL_PROCESSING_UNIT_WAFER).output(CENTRAL_PROCESSING_UNIT, 8).buildAndRegister();
@@ -681,14 +681,21 @@ public class CircuitRecipes {
         CHEMICAL_RECIPES.recipeBuilder().EUt(VA[LV]).duration(300)
                 .input(foil, Silver, 4)
                 .input(PHENOLIC_BOARD)
-                .fluidInputs(SodiumPersulfate.getFluid(200))
+                .fluidInputs(SodiumPersulfate.getFluid(250))
                 .output(GOOD_CIRCUIT_BOARD)
                 .buildAndRegister();
 
         CHEMICAL_RECIPES.recipeBuilder().EUt(VA[LV]).duration(300)
                 .input(foil, Silver, 4)
                 .input(PHENOLIC_BOARD)
-                .fluidInputs(Iron3Chloride.getFluid(100))
+                .fluidInputs(PotassiumPersulfate.getFluid(250))
+                .output(GOOD_CIRCUIT_BOARD)
+                .buildAndRegister();
+
+        CHEMICAL_RECIPES.recipeBuilder().EUt(VA[LV]).duration(300)
+                .input(foil, Silver, 4)
+                .input(PHENOLIC_BOARD)
+                .fluidInputs(Iron3Chloride.getFluid(125))
                 .output(GOOD_CIRCUIT_BOARD)
                 .buildAndRegister();
 
@@ -732,6 +739,13 @@ public class CircuitRecipes {
         CHEMICAL_RECIPES.recipeBuilder().duration(600).EUt(VA[LV])
                 .input(PLASTIC_BOARD)
                 .input(foil, Copper, 6)
+                .fluidInputs(PotassiumPersulfate.getFluid(500))
+                .output(PLASTIC_CIRCUIT_BOARD)
+                .buildAndRegister();
+
+        CHEMICAL_RECIPES.recipeBuilder().duration(600).EUt(VA[LV])
+                .input(PLASTIC_BOARD)
+                .input(foil, Copper, 6)
                 .fluidInputs(Iron3Chloride.getFluid(250))
                 .output(PLASTIC_CIRCUIT_BOARD)
                 .buildAndRegister();
@@ -749,6 +763,13 @@ public class CircuitRecipes {
                 .input(EPOXY_BOARD)
                 .input(foil, Electrum, 8)
                 .fluidInputs(SodiumPersulfate.getFluid(1000))
+                .output(ADVANCED_CIRCUIT_BOARD)
+                .buildAndRegister();
+
+        CHEMICAL_RECIPES.recipeBuilder().duration(900).EUt(VA[LV])
+                .input(EPOXY_BOARD)
+                .input(foil, Electrum, 8)
+                .fluidInputs(PotassiumPersulfate.getFluid(1000))
                 .output(ADVANCED_CIRCUIT_BOARD)
                 .buildAndRegister();
 
@@ -789,16 +810,24 @@ public class CircuitRecipes {
         // Extreme Circuit Board
         CHEMICAL_RECIPES.recipeBuilder().duration(1200).EUt(VA[LV])
                 .input(FIBER_BOARD)
-                .input(foil, AnnealedCopper, 12)
-                .fluidInputs(SodiumPersulfate.getFluid(2000))
+                .input(foil, AnnealedCopper, 8)
+                .fluidInputs(SodiumPersulfate.getFluid(1000))
                 .output(EXTREME_CIRCUIT_BOARD)
                 .cleanroom(CleanroomType.CLEANROOM)
                 .buildAndRegister();
 
         CHEMICAL_RECIPES.recipeBuilder().duration(1200).EUt(VA[LV])
                 .input(FIBER_BOARD)
-                .input(foil, AnnealedCopper, 12)
-                .fluidInputs(Iron3Chloride.getFluid(1000))
+                .input(foil, AnnealedCopper, 8)
+                .fluidInputs(PotassiumPersulfate.getFluid(1000))
+                .output(EXTREME_CIRCUIT_BOARD)
+                .cleanroom(CleanroomType.CLEANROOM)
+                .buildAndRegister();
+
+        CHEMICAL_RECIPES.recipeBuilder().duration(1200).EUt(VA[LV])
+                .input(FIBER_BOARD)
+                .input(foil, AnnealedCopper, 8)
+                .fluidInputs(Iron3Chloride.getFluid(500))
                 .output(EXTREME_CIRCUIT_BOARD)
                 .cleanroom(CleanroomType.CLEANROOM)
                 .buildAndRegister();
@@ -816,7 +845,7 @@ public class CircuitRecipes {
         CHEMICAL_RECIPES.recipeBuilder().duration(1500).EUt(VA[MV])
                 .input(MULTILAYER_FIBER_BOARD)
                 .input(foil, Platinum, 8)
-                .fluidInputs(SodiumPersulfate.getFluid(4000))
+                .fluidInputs(SodiumPersulfate.getFluid(1000))
                 .output(ELITE_CIRCUIT_BOARD)
                 .cleanroom(CleanroomType.CLEANROOM)
                 .buildAndRegister();
@@ -824,7 +853,15 @@ public class CircuitRecipes {
         CHEMICAL_RECIPES.recipeBuilder().duration(1500).EUt(VA[MV])
                 .input(MULTILAYER_FIBER_BOARD)
                 .input(foil, Platinum, 8)
-                .fluidInputs(Iron3Chloride.getFluid(2000))
+                .fluidInputs(PotassiumPersulfate.getFluid(1000))
+                .output(ELITE_CIRCUIT_BOARD)
+                .cleanroom(CleanroomType.CLEANROOM)
+                .buildAndRegister();
+
+        CHEMICAL_RECIPES.recipeBuilder().duration(1500).EUt(VA[MV])
+                .input(MULTILAYER_FIBER_BOARD)
+                .input(foil, Platinum, 8)
+                .fluidInputs(Iron3Chloride.getFluid(500))
                 .output(ELITE_CIRCUIT_BOARD)
                 .cleanroom(CleanroomType.CLEANROOM)
                 .buildAndRegister();
@@ -857,16 +894,24 @@ public class CircuitRecipes {
 
         CHEMICAL_RECIPES.recipeBuilder().duration(1800).EUt(VA[HV])
                 .input(WETWARE_BOARD)
-                .input(foil, NiobiumTitanium, 32)
-                .fluidInputs(SodiumPersulfate.getFluid(10000))
+                .input(foil, NiobiumTitanium, 8)
+                .fluidInputs(SodiumPersulfate.getFluid(1000))
                 .output(WETWARE_CIRCUIT_BOARD)
                 .cleanroom(CleanroomType.CLEANROOM)
                 .buildAndRegister();
 
         CHEMICAL_RECIPES.recipeBuilder().duration(1800).EUt(VA[HV])
                 .input(WETWARE_BOARD)
-                .input(foil, NiobiumTitanium, 32)
-                .fluidInputs(Iron3Chloride.getFluid(5000))
+                .input(foil, NiobiumTitanium, 8)
+                .fluidInputs(PotassiumPersulfate.getFluid(1000))
+                .output(WETWARE_CIRCUIT_BOARD)
+                .cleanroom(CleanroomType.CLEANROOM)
+                .buildAndRegister();
+
+        CHEMICAL_RECIPES.recipeBuilder().duration(1800).EUt(VA[HV])
+                .input(WETWARE_BOARD)
+                .input(foil, NiobiumTitanium, 8)
+                .fluidInputs(Iron3Chloride.getFluid(500))
                 .output(WETWARE_CIRCUIT_BOARD)
                 .cleanroom(CleanroomType.CLEANROOM)
                 .buildAndRegister();

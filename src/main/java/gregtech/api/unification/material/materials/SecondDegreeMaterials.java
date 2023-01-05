@@ -71,6 +71,13 @@ public class SecondDegreeMaterials {
                 .toolStats(8.5f, 3.0f, 256, 33)
                 .build().setFormula("(Al2O3)Cr", true);
 
+        Sapphire = new Material.Builder(314, "sapphire")
+                .gem().ore()
+                .color(0x6464C8).iconSet(GEM_VERTICAL)
+                .flags(EXT_METAL, NO_SMASHING, NO_SMELTING, HIGH_SIFTER_OUTPUT, GENERATE_LENS)
+                .components(Alumina, 1)
+                .build();
+
         Spessartine = new Material.Builder(321, "spessartine")
                 .gem().ore()
                 .color(0xFF6464).iconSet(RUBY)
@@ -85,14 +92,35 @@ public class SecondDegreeMaterials {
                 .toolStats(7.0f, 2.0f, 256, 15)
                 .build().setFormula("(Al2O3)F(SiO2)(H2O)", true);
 
+        NetherQuartz = new Material.Builder(339, "nether_quartz")
+                .gem(1).ore(2)
+                .color(0xE6D2D2).iconSet(QUARTZ)
+                .flags(GENERATE_PLATE, NO_SMELTING, CRYSTALLIZABLE, EXCLUDE_BLOCK_CRAFTING_BY_HAND_RECIPES, DISABLE_DECOMPOSITION)
+                .components(SiliconDioxide, 1)
+                .build();
+
+        CertusQuartz = new Material.Builder(214, "certus_quartz")
+                .gem(1).ore(2)
+                .color(0xD2D2E6).iconSet(CERTUS)
+                .flags(GENERATE_PLATE, NO_SMELTING, CRYSTALLIZABLE, DISABLE_DECOMPOSITION)
+                .components(SiliconDioxide, 1)
+                .build();
+
+        Quartzite = new Material.Builder(340, "quartzite")
+                .gem(1).ore()
+                .color(0xD2E6D2).iconSet(QUARTZ)
+                .flags(NO_SMELTING, CRYSTALLIZABLE, DISABLE_DECOMPOSITION, GENERATE_PLATE)
+                .components(SiliconDioxide, 1)
+                .build();
+
         Spodumene = new Material.Builder(381, "spodumene")
-                .dust().ore()
+                .dust().ore(2)
                 .color(0xBEAAAA)
                 .components(Alumina, 5, Lithium, 2, SiliconDioxide, 4, Oxygen, 1)
                 .build().setFormula("(Al2O3)Li2(SiO2)4O", true);
 
         Lepidolite = new Material.Builder(382, "lepidolite")
-                .dust().ore()
+                .dust().ore(2)
                 .color(0xF0328C).iconSet(FINE)
                 .components(Alumina, 2, Potassium, 1, Lithium, 3, Fluorine, 2, Oxygen, 6)
                 .build();
@@ -171,7 +199,7 @@ public class SecondDegreeMaterials {
                 .build();
 
         Lapis = new Material.Builder(2007, "lapis")
-                .gem(1).ore(5)
+                .gem(1).ore(4)
                 .color(0x4646DC).iconSet(LAPIS)
                 .flags(NO_SMASHING, NO_SMELTING, CRYSTALLIZABLE, NO_WORKING, DECOMPOSITION_BY_ELECTROLYZING, EXCLUDE_BLOCK_CRAFTING_BY_HAND_RECIPES,
                         GENERATE_PLATE, GENERATE_ROD)
