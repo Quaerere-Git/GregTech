@@ -54,6 +54,7 @@ public class ToolItems {
     public static IGTTool WRENCH_IV;
     public static IGTTool BUZZSAW;
     public static IGTTool SCREWDRIVER_LV;
+    public static IGTTool PLUNGER;
 
     public static void init() {
         SWORD = register(ItemGTSword.Builder.of(GTValues.MODID, "sword")
@@ -68,14 +69,13 @@ public class ToolItems {
                 .toolStats(b -> b.blockBreaking().attackDamage(1.5F).attackSpeed(-3.0F)
                         .behaviors(new GrassPathBehavior()))
                 .toolClasses(ToolClasses.SHOVEL));
-        AXE = register(ItemGTTool.Builder.of(GTValues.MODID, "axe")
+        AXE = register(ItemGTAxe.Builder.of(GTValues.MODID, "axe")
                 .toolStats(b -> b.blockBreaking()
                         .attackDamage(5.0F).attackSpeed(-3.2F).baseEfficiency(2.0F)
                         .behaviors(new DisableShieldBehavior(), new TreeFellingBehavior()))
                 .toolClasses(ToolClasses.AXE));
-        HOE = register(ItemGTTool.Builder.of(GTValues.MODID, "hoe")
-                .toolStats(b -> b.cannotAttack().attackSpeed(-1.0F)
-                        .behaviors(new HoeGroundBehavior()))
+        HOE = register(ItemGTHoe.Builder.of(GTValues.MODID, "hoe")
+                .toolStats(b -> b.cannotAttack().attackSpeed(-1.0F))
                 .toolClasses(ToolClasses.HOE));
         SAW = register(ItemGTTool.Builder.of(GTValues.MODID, "saw")
                 .toolStats(b -> b.crafting().damagePerCraftingAction(2)
@@ -214,7 +214,7 @@ public class ToolItems {
                 .toolClasses(ToolClasses.DRILL)
                 .electric(GTValues.IV));
 
-        CHAINSAW_LV = register(ItemGTTool.Builder.of(GTValues.MODID, "chainsaw_lv")
+        CHAINSAW_LV = register(ItemGTAxe.Builder.of(GTValues.MODID, "chainsaw_lv")
                 .toolStats(b -> b.blockBreaking()
                         .efficiencyMultiplier(2.0F)
                         .attackDamage(5.0F).attackSpeed(-3.2F)
@@ -265,6 +265,12 @@ public class ToolItems {
                 .oreDict(ToolOreDicts.craftingToolScrewdriver)
                 .toolClasses(ToolClasses.SCREWDRIVER)
                 .electric(GTValues.LV));
+        PLUNGER = register(ItemGTTool.Builder.of(GTValues.MODID, "plunger")
+                .toolStats(b -> b.cannotAttack().attackSpeed(-2.4F).sneakBypassUse()
+                        .behaviors(new PlungerBehavior()))
+                .sound(GTSoundEvents.PLUNGER_TOOL)
+                .toolClasses(ToolClasses.PLUNGER)
+                .markerItem(() -> ToolHelper.getAndSetToolData(PLUNGER, Materials.Rubber, 256, 1, 4F, 0F)));
     }
 
     public static IGTTool register(@Nonnull ToolBuilder<?> builder) {

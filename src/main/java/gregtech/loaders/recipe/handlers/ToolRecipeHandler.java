@@ -16,10 +16,14 @@ import gregtech.api.unification.material.properties.PropertyKey;
 import gregtech.api.unification.material.properties.ToolProperty;
 import gregtech.api.unification.ore.OrePrefix;
 import gregtech.api.unification.stack.UnificationEntry;
+import gregtech.common.ConfigHolder;
+import gregtech.common.crafting.ToolHeadReplaceRecipe;
 import gregtech.common.items.MetaItems;
 import gregtech.common.items.ToolItems;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
 
 import javax.annotation.Nonnull;
 import java.util.Collections;
@@ -73,6 +77,19 @@ public class ToolRecipeHandler {
         batteryItems.put(GTValues.ZPM, ImmutableList.of(MetaItems.BATTERY_ZPM_NAQUADRIA, MetaItems.ENERGY_MODULE));
         batteryItems.put(GTValues.UV, ImmutableList.of(MetaItems.BATTERY_UV_NAQUADRIA, MetaItems.ENERGY_CLUSTER));
 
+        ToolHeadReplaceRecipe.setToolHeadForTool(OrePrefix.toolHeadDrill, ToolItems.DRILL_LV);
+        ToolHeadReplaceRecipe.setToolHeadForTool(OrePrefix.toolHeadDrill, ToolItems.DRILL_MV);
+        ToolHeadReplaceRecipe.setToolHeadForTool(OrePrefix.toolHeadDrill, ToolItems.DRILL_HV);
+        ToolHeadReplaceRecipe.setToolHeadForTool(OrePrefix.toolHeadDrill, ToolItems.DRILL_EV);
+        ToolHeadReplaceRecipe.setToolHeadForTool(OrePrefix.toolHeadDrill, ToolItems.DRILL_IV);
+        ToolHeadReplaceRecipe.setToolHeadForTool(OrePrefix.toolHeadChainsaw, ToolItems.CHAINSAW_LV);
+        ToolHeadReplaceRecipe.setToolHeadForTool(OrePrefix.toolHeadWrench, ToolItems.WRENCH_LV);
+        ToolHeadReplaceRecipe.setToolHeadForTool(OrePrefix.toolHeadWrench, ToolItems.WRENCH_HV);
+        ToolHeadReplaceRecipe.setToolHeadForTool(OrePrefix.toolHeadWrench, ToolItems.WRENCH_IV);
+        ToolHeadReplaceRecipe.setToolHeadForTool(OrePrefix.toolHeadBuzzSaw, ToolItems.BUZZSAW);
+        ToolHeadReplaceRecipe.setToolHeadForTool(OrePrefix.toolHeadScrewdriver, ToolItems.SCREWDRIVER_LV);
+
+        ForgeRegistries.RECIPES.register(new ToolHeadReplaceRecipe().setRegistryName(new ResourceLocation(MODID, "replacetoolhead")));
     }
 
     public static void registerPowerUnitRecipes() {
@@ -301,7 +318,7 @@ public class ToolRecipeHandler {
     public static void registerCustomToolRecipes() {
         registerFlintToolRecipes();
         registerMortarRecipes();
-        registerSoftHammerRecipes();
+        registerSoftToolRecipes();
         registerElectricRecipes();
     }
 
@@ -357,16 +374,16 @@ public class ToolRecipeHandler {
         }
     }
 
-    private static void registerSoftHammerRecipes() {
-        final Material[] softHammerMaterials = new Material[]{
+    private static void registerSoftToolRecipes() {
+        final Material[] softMaterials = new Material[]{
                 Materials.Wood, Materials.Rubber, Materials.Polyethylene,
                 Materials.Polytetrafluoroethylene, Materials.Polybenzimidazole
         };
 
         final UnificationEntry stick = new UnificationEntry(OrePrefix.stick, Materials.Wood);
 
-        for (int i = 0; i < softHammerMaterials.length; i++) {
-            Material material = softHammerMaterials[i];
+        for (int i = 0; i < softMaterials.length; i++) {
+            Material material = softMaterials[i];
 
             if (ModHandler.isMaterialWood(material)) {
                 ModHandler.addMirroredShapedRecipe(String.format("soft_mallet_%s", material),
@@ -379,6 +396,12 @@ public class ToolRecipeHandler {
                         ToolHelper.getAndSetToolData(ToolItems.SOFT_MALLET, material, 128 * (1 << i), 1, 4F, 1F),
                         "II ", "IIS", "II ",
                         'I', new UnificationEntry(OrePrefix.ingot, material),
+                        'S', stick);
+
+                ModHandler.addMirroredShapedRecipe(String.format("plunger_%s", material),
+                        ToolHelper.getAndSetToolData(ToolItems.PLUNGER, material, 128 * (i << 1), 1, 4F, 0F),
+                        "xPP", " SP", "S f",
+                        'P', new UnificationEntry(OrePrefix.plate, material),
                         'S', stick);
             }
         }

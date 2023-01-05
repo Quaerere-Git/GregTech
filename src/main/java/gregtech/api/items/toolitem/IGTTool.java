@@ -11,6 +11,7 @@ import forestry.api.arboriculture.IToolGrafter;
 import gregtech.api.GTValues;
 import gregtech.api.GregTechAPI;
 import gregtech.api.capability.GregtechCapabilities;
+import gregtech.api.capability.impl.CombinedCapabilityProvider;
 import gregtech.api.capability.impl.ElectricItem;
 import gregtech.api.gui.GuiTextures;
 import gregtech.api.gui.ModularUI;
@@ -36,6 +37,7 @@ import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.EnchantmentDurability;
 import net.minecraft.enchantment.EnchantmentMending;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -273,7 +275,12 @@ public interface IGTTool extends ItemUIFactory, IAEWrench, IToolWrench, IToolHam
         if (toolTag.hasKey(ATTACK_DAMAGE_KEY, Constants.NBT.TAG_FLOAT)) {
             return toolTag.getFloat(ATTACK_DAMAGE_KEY);
         }
-        float attackDamage = getMaterialAttackDamage(stack) + getToolStats().getBaseDamage(stack);
+        float baseDamage = getToolStats().getBaseDamage(stack);
+        float attackDamage = 0;
+        // represents a tool that should always have an attack damage value of 0
+        if (baseDamage != Float.MIN_VALUE) {
+            attackDamage = getMaterialAttackDamage(stack) + baseDamage;
+        }
         toolTag.setFloat(ATTACK_DAMAGE_KEY, attackDamage);
         return attackDamage;
     }
@@ -514,7 +521,19 @@ public interface IGTTool extends ItemUIFactory, IAEWrench, IToolWrench, IToolHam
 
     @Nullable
     default ICapabilityProvider definition$initCapabilities(ItemStack stack, @Nullable NBTTagCompound nbt) {
-        return isElectric() ? ElectricStats.createElectricItem(0L, getElectricTier()).createProvider(stack) : null;
+        List<ICapabilityProvider> providers = new ArrayList<>();
+        if (isElectric()) {
+            providers.add(ElectricStats.createElectricItem(0L, getElectricTier()).createProvider(stack));
+        }
+        for (IToolBehavior behavior : getToolStats().getBehaviors()) {
+            ICapabilityProvider behaviorProvider = behavior.createProvider(stack, nbt);
+            if (behaviorProvider != null) {
+                providers.add(behaviorProvider);
+            }
+        }
+        if (providers.isEmpty()) return null;
+        if (providers.size() == 1) return providers.get(0);
+        return new CombinedCapabilityProvider(providers);
     }
 
     default EnumActionResult definition$onItemUseFirst(@Nonnull EntityPlayer player, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull EnumFacing facing, float hitX, float hitY, float hitZ, @Nonnull EnumHand hand) {
@@ -555,6 +574,16 @@ public interface IGTTool extends ItemUIFactory, IAEWrench, IToolWrench, IToolHam
         return ActionResult.newResult(EnumActionResult.PASS, stack);
     }
 
+    default void definition$getSubItems(@Nonnull NonNullList<ItemStack> items) {
+        if (getMarkerItem() != null) {
+            items.add(getMarkerItem().get());
+        } else if (isElectric()) {
+            items.add(get(Materials.Iron, Integer.MAX_VALUE));
+        } else {
+            items.add(get(Materials.Iron));
+        }
+    }
+
     // Client-side methods
     @SideOnly(Side.CLIENT)
     default void definition$addInformation(@Nonnull ItemStack stack, @Nullable World world, @Nonnull List<String> tooltip, ITooltipFlag flag) {
@@ -564,6 +593,7 @@ public interface IGTTool extends ItemUIFactory, IAEWrench, IToolWrench, IToolHam
                     getMaxCharge(stack),
                     GTValues.VNF[getElectricTier()]));
             tooltip.add("");
+            tooltip.add(I18n.format("item.gt.tool.replace_tool_head"));
         }
 
         tooltip.add(I18n.format("item.gt.tool.behaves_like", stack.getItem().getToolClasses(stack).stream()
@@ -591,8 +621,25 @@ public interface IGTTool extends ItemUIFactory, IAEWrench, IToolWrench, IToolHam
 
     default boolean definition$canApplyAtEnchantingTable(@Nonnull ItemStack stack, Enchantment enchantment) {
         if (stack.isEmpty()) return false;
-        if (enchantment.type == null) return true;
 
+        // special case enchants from other mods
+        switch (enchantment.getName()) {
+            case "enchantment.cofhcore.smashing":
+                // block cofhcore smashing enchant from all tools
+                return false;
+            case "enchantment.autosmelt": // endercore
+            case "enchantment.cofhcore.smelting": // cofhcore
+            case "enchantment.as.smelting": // astral sorcery
+                // block autosmelt enchants from AoE and Tree-Felling tools
+                return getToolStats().getAoEDefinition(stack) == AoESymmetrical.none() && !getBehavioursTag(stack).hasKey(TREE_FELLING_KEY);
+        }
+
+        // Block Mending and Unbreaking on Electric tools
+        if (isElectric() && (enchantment instanceof EnchantmentMending || enchantment instanceof EnchantmentDurability)) {
+            return false;
+        }
+
+        if (enchantment.type == null) return true;
         // bypass EnumEnchantmentType#canEnchantItem and define custom stack-aware logic.
         // the Minecraft method takes an Item, and does not respect NBT nor meta.
         switch (enchantment.type) {
@@ -603,9 +650,9 @@ public interface IGTTool extends ItemUIFactory, IAEWrench, IToolWrench, IToolHam
                 return getToolStats().isSuitableForAttacking(stack);
             }
             case BREAKABLE:
+                return stack.getTagCompound() != null && !stack.getTagCompound().getBoolean(UNBREAKABLE_KEY);
             case ALL: {
-                // don't allow mending on electric tools
-                return !(isElectric() && enchantment instanceof EnchantmentMending);
+                return true;
             }
         }
 
