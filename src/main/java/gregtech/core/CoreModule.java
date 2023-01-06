@@ -48,7 +48,6 @@ import gregtech.core.network.internal.NetworkHandler;
 import gregtech.core.network.packets.*;
 import gregtech.core.sound.GTSoundEvents;
 import gregtech.core.sound.internal.SoundManager;
-import gregtech.integration.GroovyHandCommand;
 import gregtech.integration.GroovyScriptCompat;
 import gregtech.integration.theoneprobe.TheOneProbeCompatibility;
 import gregtech.loaders.dungeon.DungeonLootLoader;
@@ -102,7 +101,6 @@ public class CoreModule implements IGregTechModule {
 
         /* init GroovyScript compat */
         GroovyScriptCompat.init();
-        MinecraftForge.EVENT_BUS.register(GroovyHandCommand.class);
 
         /* Start UI Factory Registration */
         UI_FACTORY_REGISTRY.unfreeze();
