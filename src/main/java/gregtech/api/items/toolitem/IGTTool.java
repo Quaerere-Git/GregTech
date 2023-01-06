@@ -22,6 +22,7 @@ import gregtech.api.items.gui.PlayerInventoryHolder;
 import gregtech.api.items.metaitem.ElectricStats;
 import gregtech.api.items.toolitem.aoe.AoESymmetrical;
 import gregtech.api.items.toolitem.behavior.IToolBehavior;
+import gregtech.api.recipes.ModHandler;
 import gregtech.api.unification.OreDictUnifier;
 import gregtech.api.unification.material.Material;
 import gregtech.api.unification.material.Materials;
@@ -29,10 +30,9 @@ import gregtech.api.unification.material.info.MaterialFlags;
 import gregtech.api.unification.material.properties.DustProperty;
 import gregtech.api.unification.material.properties.PropertyKey;
 import gregtech.api.unification.material.properties.ToolProperty;
-import gregtech.api.unification.stack.MaterialStack;
-import gregtech.api.util.GTUtility;
+import gregtech.api.unification.ore.OrePrefix;
+import gregtech.api.unification.stack.UnificationEntry;
 import gregtech.client.utils.ToolChargeBarRenderer;
-import gregtech.client.utils.TooltipHelper;
 import gregtech.common.ConfigHolder;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -421,8 +421,25 @@ public interface IGTTool extends ItemUIFactory, IAEWrench, IToolWrench, IToolHam
         if (repair.getItem() instanceof IGTTool) {
             return getToolMaterial(toRepair) == ((IGTTool) repair.getItem()).getToolMaterial(repair);
         }
-        MaterialStack repairMaterialStack = OreDictUnifier.getMaterial(repair);
-        return repairMaterialStack != null && repairMaterialStack.material == getToolMaterial(toRepair);
+        UnificationEntry entry = OreDictUnifier.getUnificationEntry(repair);
+        if (entry == null || entry.material == null) return false;
+        if (entry.material == getToolMaterial(toRepair)) {
+            // special case wood to allow Wood Planks
+            if (ModHandler.isMaterialWood(entry.material)) {
+                return entry.orePrefix == OrePrefix.plank;
+            }
+            // Gems can use gem and plate, Ingots can use ingot and plate
+            if (entry.orePrefix == OrePrefix.plate) {
+                return true;
+            }
+            if (entry.material.hasProperty(PropertyKey.INGOT)) {
+                return entry.orePrefix == OrePrefix.ingot;
+            }
+            if (entry.material.hasProperty(PropertyKey.GEM)) {
+                return entry.orePrefix == OrePrefix.gem;
+            }
+        }
+        return false;
     }
 
     default Multimap<String, AttributeModifier> definition$getAttributeModifiers(EntityEquipmentSlot equipmentSlot, ItemStack stack) {
