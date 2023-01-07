@@ -36,6 +36,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -180,6 +181,35 @@ public abstract class MetaTileEntity implements ICoverable, IVoidable {
     public void addInformation(ItemStack stack, @Nullable World player, List<String> tooltip, boolean advanced) {
     }
 
+    /**
+     * Override this to add extended tool information to the "Hold SHIFT to show Tool Info" tooltip section.
+     * ALWAYS CALL SUPER LAST!
+     * Intended ordering:
+     * - Screwdriver
+     * - Wrench
+     * - Wire Cutter
+     * - Soft Hammer
+     * - Hammer
+     * - Crowbar
+     * - Others
+     * <br>
+     * The super method automatically handles Hammer muffling and Crowbar cover removal.
+     * If you have extended usages of these tools in your addon, let us know and we can amend
+     * this default appended tooltip information.
+     */
+    @SideOnly(Side.CLIENT)
+    public void addToolUsages(ItemStack stack, @Nullable World world, List<String> tooltip, boolean advanced) {
+        if (getSound() != null) {
+            tooltip.add(I18n.format("gregtech.tool_action.hammer"));
+        }
+        tooltip.add(I18n.format("gregtech.tool_action.crowbar"));
+        // todo tool_to_break (maybe in the block class where this is called would be easier?)
+    }
+
+    /** Override this to completely remove the "Tool Info" tooltip section */
+    public boolean showToolUsages() {
+        return true;
+    }
     @SideOnly(Side.CLIENT)
     public Pair<TextureAtlasSprite, Integer> getParticleTexture() {
         return Pair.of(TextureUtils.getMissingSprite(), 0xFFFFFF);
