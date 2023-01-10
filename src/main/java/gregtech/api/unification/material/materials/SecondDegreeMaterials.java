@@ -41,7 +41,6 @@ public class SecondDegreeMaterials {
                 .color(0x7B96DC).iconSet(GEM_HORIZONTAL)
                 .flags(EXT_METAL, NO_SMASHING, NO_SMELTING, HIGH_SIFTER_OUTPUT)
                 .components(Alumina, 5, Silicon, 1, Fluorine, 2, Water, 1)
-                .toolStats(7.0f, 3.0f, 256, 15)
                 .build().setFormula("(Al2O3)(SiO2)F2(H2O)", true);
 
         Emerald = new Material.Builder(278, "emerald")
@@ -49,7 +48,6 @@ public class SecondDegreeMaterials {
                 .color(0x50FF50).iconSet(EMERALD)
                 .flags(EXT_METAL, NO_SMASHING, NO_SMELTING, HIGH_SIFTER_OUTPUT, EXCLUDE_BLOCK_CRAFTING_BY_HAND_RECIPES, GENERATE_LENS)
                 .components(Alumina, 1, Beryllium, 3, SiliconDioxide, 6, Oxygen, 3)
-                .toolStats(10.0f, 2.0f, 368, 15)
                 .build();
 
         Grossular = new Material.Builder(282, "grossular")
@@ -67,9 +65,8 @@ public class SecondDegreeMaterials {
         Ruby = new Material.Builder(311, "ruby")
                 .gem().ore()
                 .color(0xFF6464).iconSet(RUBY)
-                .flags(EXT_METAL, NO_SMASHING, NO_SMELTING, HIGH_SIFTER_OUTPUT, GENERATE_LENS, DECOMPOSITION_BY_CENTRIFUGING)
+                .flags(EXT_METAL, NO_SMASHING, NO_SMELTING, HIGH_SIFTER_OUTPUT, GENERATE_LENS)
                 .components(Alumina, 5, Chrome, 1)
-                .toolStats(8.5f, 3.0f, 256, 33)
                 .build().setFormula("(Al2O3)Cr", true);
 
         Sapphire = new Material.Builder(314, "sapphire")
@@ -90,7 +87,6 @@ public class SecondDegreeMaterials {
                 .color(0xFF8000).iconSet(GEM_HORIZONTAL)
                 .flags(EXT_METAL, NO_SMASHING, NO_SMELTING, HIGH_SIFTER_OUTPUT)
                 .components(Alumina, 5, Fluorine, 1, SiliconDioxide, 1, Water, 1)
-                .toolStats(7.0f, 2.0f, 256, 15)
                 .build().setFormula("(Al2O3)F(SiO2)(H2O)", true);
 
         NetherQuartz = new Material.Builder(339, "nether_quartz")
