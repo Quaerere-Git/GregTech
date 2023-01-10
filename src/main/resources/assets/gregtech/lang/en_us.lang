@@ -259,6 +259,8 @@ metaitem.shape.extruder.rod_long.name=Extruder Shape (Long Rod)
 metaitem.shape.extruder.rod_long.tooltip=Extruder Shape for making Long Rods
 metaitem.shape.extruder.rotor.name=Extruder Shape (Rotor)
 metaitem.shape.extruder.rotor.tooltip=Extruder Shape for making Rotors
+metaitem.shape.extruder.chunk.name=Extruder Shape (Chunk)
+metaitem.shape.extruder.chunk.tooltip=Extruder Shape for making Chunks
 
 metaitem.spray.empty.name=Spray Can (Empty)
 metaitem.spray.empty.tooltip=Can be filled with sprays of various colors
@@ -903,6 +905,7 @@ item.gt.tool.behavior.rail_rotation=§eRailroad Engineer: §fRotates Rails
 item.gt.tool.behavior.crop_harvesting=§aHarvester: §fHarvests Crops
 item.gt.tool.behavior.plunger=§9Plumber: §fDrains Fluids
 item.gt.tool.behavior.block_rotation=§2Mechanic: §fRotates Blocks
+item.gt.tool.behavior.damage_boost=§4Damage Boost: §fExtra damage against %s
 
 item.gt.tool.sword.name=%s Sword
 item.gt.tool.pickaxe.name=%s Pickaxe
@@ -2348,7 +2351,7 @@ tile.lamp.lamp_lightblue.name=Light Blue Lamp
 tile.lamp.lamp_yellow.name=Yellow Lamp
 tile.lamp.lamp_lime.name=Lime Lamp
 tile.lamp.lamp_pink.name=Pink Lamp
-tile.lamp.lamp_gray.name=gray Lamp
+tile.lamp.lamp_gray.name=Gray Lamp
 tile.lamp.lamp_lightgray.name=Light Gray Lamp
 tile.lamp.lamp_cyan.name=Cyan Lamp
 tile.lamp.lamp_purple.name=Purple Lamp
@@ -2366,7 +2369,7 @@ tile.off_lamp.lamp_lightblue.name=Light Blue Lamp (OFF)
 tile.off_lamp.lamp_yellow.name=Yellow Lamp (OFF)
 tile.off_lamp.lamp_lime.name=Lime Lamp (OFF)
 tile.off_lamp.lamp_pink.name=Pink Lamp (OFF)
-tile.off_lamp.lamp_gray.name=gray Lamp (OFF)
+tile.off_lamp.lamp_gray.name=Gray Lamp (OFF)
 tile.off_lamp.lamp_lightgray.name=Light Gray Lamp (OFF)
 tile.off_lamp.lamp_cyan.name=Cyan Lamp (OFF)
 tile.off_lamp.lamp_purple.name=Purple Lamp (OFF)
@@ -3008,31 +3011,31 @@ gregtech.machine.centrifuge.opv.tooltip=Molecular Tornado
 
 # Chemical Bath
 gregtech.machine.chemical_bath.lv.name=Basic Chemical Bath
-gregtech.machine.chemical_bath.lv.tooltip=Getting more Byproducts from your Ores
+gregtech.machine.chemical_bath.lv.tooltip=Bathing Ores in Chemicals to separate them
 gregtech.machine.chemical_bath.mv.name=Advanced Chemical Bath
-gregtech.machine.chemical_bath.mv.tooltip=Getting more Byproducts from your Ores
+gregtech.machine.chemical_bath.mv.tooltip=Bathing Ores in Chemicals to separate them
 gregtech.machine.chemical_bath.hv.name=Advanced Chemical Bath II
-gregtech.machine.chemical_bath.hv.tooltip=Getting more Byproducts from your Ores
+gregtech.machine.chemical_bath.hv.tooltip=Bathing Ores in Chemicals to separate them
 gregtech.machine.chemical_bath.ev.name=Advanced Chemical Bath III
-gregtech.machine.chemical_bath.ev.tooltip=Getting more Byproducts from your Ores
+gregtech.machine.chemical_bath.ev.tooltip=Bathing Ores in Chemicals to separate them
 gregtech.machine.chemical_bath.iv.name=Elite Chemical Bath
-gregtech.machine.chemical_bath.iv.tooltip=Repurposed Laundry-Washer I-360
+gregtech.machine.chemical_bath.iv.tooltip=Chemical Soaker
 gregtech.machine.chemical_bath.luv.name=Elite Chemical Bath II
-gregtech.machine.chemical_bath.luv.tooltip=Repurposed Laundry-Washer I-361
+gregtech.machine.chemical_bath.luv.tooltip=Chemical Soaker
 gregtech.machine.chemical_bath.zpm.name=Elite Chemical Bath III
-gregtech.machine.chemical_bath.zpm.tooltip=Repurposed Laundry-Washer I-362
+gregtech.machine.chemical_bath.zpm.tooltip=Chemical Soaker
 gregtech.machine.chemical_bath.uv.name=Ultimate Chemical Bath
-gregtech.machine.chemical_bath.uv.tooltip=Miniature Car Wash
+gregtech.machine.chemical_bath.uv.tooltip=Chemical Dunktron
 gregtech.machine.chemical_bath.uhv.name=Epic Chemical Bath
-gregtech.machine.chemical_bath.uhv.tooltip=Miniature Car Wash
+gregtech.machine.chemical_bath.uhv.tooltip=Chemical Dunktron
 gregtech.machine.chemical_bath.uev.name=Epic Chemical Bath II
-gregtech.machine.chemical_bath.uev.tooltip=Miniature Car Wash
+gregtech.machine.chemical_bath.uev.tooltip=Chemical Dunktron
 gregtech.machine.chemical_bath.uiv.name=Epic Chemical Bath III
-gregtech.machine.chemical_bath.uiv.tooltip=Miniature Car Wash
+gregtech.machine.chemical_bath.uiv.tooltip=Chemical Dunktron
 gregtech.machine.chemical_bath.uxv.name=Epic Chemical Bath IV
-gregtech.machine.chemical_bath.uxv.tooltip=Miniature Car Wash
+gregtech.machine.chemical_bath.uxv.tooltip=Chemical Dunktron
 gregtech.machine.chemical_bath.opv.name=Legendary Chemical Bath
-gregtech.machine.chemical_bath.opv.tooltip=Miniature Car Wash
+gregtech.machine.chemical_bath.opv.tooltip=Chemical Dunktron
 
 # Chemical Reactor
 gregtech.machine.chemical_reactor.lv.name=Basic Chemical Reactor
@@ -4144,10 +4147,12 @@ gregtech.machine.world_accelerator.uev.name=Epic World Accelerator II
 gregtech.machine.world_accelerator.uiv.name=Epic World Accelerator III
 gregtech.machine.world_accelerator.uxv.name=Epic World Accelerator IV
 gregtech.machine.world_accelerator.opv.name=Legendary World Accelerator
-gregtech.machine.world_accelerator.description=Increase tick updates per tick. 2 modes: Tile Entity or Random Tick. Use a Screwdriver to change modes.
-gregtech.machine.world_accelerator.area=On Tile Entity mode, only adjacent blocks are sped up. On Random Tick, it is %dx%d blocks radius.
+gregtech.machine.world_accelerator.description=Tick accelerates nearby blocks in one of 2 modes: §fTile Entity§7 or §fRandom Tick§7. Use Screwdriver to change mode.
+gregtech.machine.world_accelerator.working_area=§bWorking Area:
+gregtech.machine.world_accelerator.working_area_tile=  Tile Entity Mode:§f Adjacent Blocks
+gregtech.machine.world_accelerator.working_area_random=  Random Tick Mode:§f %dx%d
 gregtech.machine.world_accelerator.mode_tile=Tile Entity Mode
-gregtech.machine.world_accelerator.mode_entity=Entity Mode
+gregtech.machine.world_accelerator.mode_entity=Random Tick Mode
 
 # General machinery
 gregtech.machine.basic.input_from_output_side.allow=Allow Input from Output Side
@@ -4389,9 +4394,9 @@ behaviour.prospecting=Usable for Prospecting
 gregtech.machine.primitive_water_pump.name=Primitive Water Pump
 gregtech.machine.primitive_blast_furnace.bronze.name=Primitive Blast Furnace
 gregtech.machine.electric_blast_furnace.name=Electric Blast Furnace
-gregtech.machine.electric_blast_furnace.tooltip.1=For every §a900K§7 above the recipe temperature, a multiplicative §a95%%§7 energy multiplier is applied pre-overclocking.
-gregtech.machine.electric_blast_furnace.tooltip.2=For every §a1800K§7 above the recipe temperature, one overclock becomes §a100%%§7 efficient.
-gregtech.machine.electric_blast_furnace.tooltip.3=For every voltage tier above §aMV§7, temperature is increased by §a100K§7.
+gregtech.machine.electric_blast_furnace.tooltip.1=For every §f900K§7 above the recipe temperature, a multiplicative §f95%%§7 energy multiplier is applied pre-overclocking.
+gregtech.machine.electric_blast_furnace.tooltip.2=For every §f1800K§7 above the recipe temperature, one overclock becomes §f100%% efficient§7 (perfect overclock).
+gregtech.machine.electric_blast_furnace.tooltip.3=For every voltage tier above §bMV§7, temperature is increased by §f100K§7.
 gregtech.machine.vacuum_freezer.name=Vacuum Freezer
 gregtech.machine.implosion_compressor.name=Implosion Compressor
 gregtech.machine.pyrolyse_oven.name=Pyrolyse Oven
@@ -4696,7 +4701,7 @@ gregtech.maintenance.configurable_time=Time: %fx
 gregtech.maintenance.configurable_time.unchanged_description=Maintenance problems will occur at normal rate. Change configuration to update.
 gregtech.maintenance.configurable_time.changed_description=Maintenance problems will occur at %fx the normal rate.
 
-gregtech.machine.muffler_hatch.tooltip1=Recovers waste from recipes
+gregtech.machine.muffler_hatch.tooltip1=Recovers waste from machines
 gregtech.machine.muffler_hatch.tooltip2=DO NOT OBSTRUCT THE OUTPUT!
 
 gregtech.machine.muffler_hatch.ulv.name=ULV Muffler Hatch
@@ -4740,10 +4745,6 @@ gregtech.machine.data_access_hatch.creative.tooltip.1=§8You just need §o§5C§
 
 gregtech.machine.fluid_tank.max_multiblock=Max Multiblock Size: %,dx%,dx%,d
 gregtech.machine.fluid_tank.fluid=Contains %s L of %s
-
-# TODO:
-# - Multiblock fun descriptions like normal machines
-# - JEI pins
 
 # Universal tooltips
 gregtech.universal.tooltip.voltage_in=§aVoltage IN: §f%,d EU/t (%s§f)
@@ -4817,12 +4818,6 @@ gregtech.tool_action.soft_mallet.toggle_mode=§8Use Soft Mallet to toggle Modes
 gregtech.tool_action.hammer=§8Use Hard Hammer to muffle Sounds
 gregtech.tool_action.crowbar=§8Use Crowbar to remove Covers
 gregtech.tool_action.tape=§8Use Tape to fix Maintenance Problems
-
-# todo clean up wrench usages and fix the tooltip description
-
-# todo obscure tool usages:
-# - Saw Ice harvesting
-# - Wrench Iron Golem Damage
 
 gregtech.fluid.generic=%s
 gregtech.fluid.plasma=%s Plasma
@@ -5305,3 +5300,6 @@ gregtech.key.armor_mode_switch=Armor Mode Switch
 gregtech.key.armor_hover=Armor Hover Toggle
 gregtech.key.armor_charging=Armor Charging to Inventory Toggle
 gregtech.key.tool_aoe_change=Tool AoE Mode Switch
+
+# Debug messaging
+gregtech.debug.f3_h.enabled=GregTech has modified the debug info! For Developers: enable the misc:debug config option in the GregTech config file to see more

@@ -98,7 +98,7 @@ public class ToolEventHandlers {
             if (!event.isSilkTouching()) {
                 ToolHelper.applyHammerDropConversion(stack, event.getState(), event.getDrops(), event.getFortuneLevel(), event.getDropChance(), player.getRNG());
             }
-            NBTTagCompound behaviorTag = ToolHelper.getBehavioursTag(stack);
+            NBTTagCompound behaviorTag = ToolHelper.getBehaviorsTag(stack);
             Block block = event.getState().getBlock();
             if (!event.isSilkTouching() && (block == Blocks.ICE || block == Blocks.PACKED_ICE) && behaviorTag.getBoolean(ToolHelper.HARVEST_ICE_KEY)) {
                 Item iceBlock = Item.getItemFromBlock(block);

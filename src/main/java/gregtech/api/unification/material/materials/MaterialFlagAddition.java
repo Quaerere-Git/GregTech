@@ -123,7 +123,7 @@ public class MaterialFlagAddition {
         oreProp.setVitriol(GreenVitriol);
 
         oreProp = Calcite.getProperty(PropertyKey.ORE);
-        oreProp.setOreByProducts(Calcium, Calcium, Sodalite, Malachite);
+        oreProp.setOreByProducts(Calcium, Calcium, Sodalite);
 
         oreProp = Cassiterite.getProperty(PropertyKey.ORE);
         oreProp.setOreByProducts(Tin, Bismuth);
@@ -422,8 +422,5 @@ public class MaterialFlagAddition {
 
         oreProp = Pyrochlore.getProperty(PropertyKey.ORE);
         oreProp.setOreByProducts(Apatite, Calcium, Niobium);
-
-        ToolProperty toolProp = Neutronium.getProperty(PropertyKey.TOOL);
-        toolProp.setUnbreakable(true);
     }
 }

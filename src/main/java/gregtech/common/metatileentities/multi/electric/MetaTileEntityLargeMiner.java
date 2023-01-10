@@ -130,7 +130,7 @@ public class MetaTileEntityLargeMiner extends MultiblockWithDisplayBase implemen
 
     @Override
     public boolean drainEnergy(boolean simulate) {
-        long energyToDrain = GTValues.VA[GTUtility.getTierByVoltage(getEnergyTier())];
+        long energyToDrain = GTValues.VA[getEnergyTier()];
         long resultEnergy = energyContainer.getEnergyStored() - energyToDrain;
         if (resultEnergy >= 0L && resultEnergy <= energyContainer.getEnergyCapacity()) {
             if (!simulate)
@@ -178,7 +178,7 @@ public class MetaTileEntityLargeMiner extends MultiblockWithDisplayBase implemen
                 .where('X', states(getCasingState())
                         .or(abilities(MultiblockAbility.EXPORT_ITEMS).setMaxGlobalLimited(1).setPreviewCount(1))
                         .or(abilities(MultiblockAbility.IMPORT_FLUIDS).setExactLimit(1).setPreviewCount(1))
-                        .or(abilities(MultiblockAbility.INPUT_ENERGY).setMinGlobalLimited(1).setMaxGlobalLimited(2).setPreviewCount(1)))
+                        .or(abilities(MultiblockAbility.INPUT_ENERGY).setMinGlobalLimited(1).setMaxGlobalLimited(3).setPreviewCount(1)))
                 .where('C', states(getCasingState()))
                 .where('F', getFramePredicate())
                 .where('#', any())
@@ -208,7 +208,6 @@ public class MetaTileEntityLargeMiner extends MultiblockWithDisplayBase implemen
             tooltip.add(I18n.format("gregtech.tool_action.hammer"));
         }
         tooltip.add(I18n.format("gregtech.tool_action.crowbar"));
-        // todo tool_to_break (maybe in the block class where this is called would be easier?)
     }
 
     @Override

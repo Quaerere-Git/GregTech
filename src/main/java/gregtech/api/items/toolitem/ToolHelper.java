@@ -35,6 +35,7 @@ import net.minecraft.init.Enchantments;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.play.server.SPacketBlockChange;
+import net.minecraft.stats.StatBase;
 import net.minecraft.stats.StatList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
@@ -47,12 +48,13 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.IShearable;
 import net.minecraftforge.event.ForgeEventFactory;
+import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;
-import java.lang.invoke.MethodType;
+import java.lang.reflect.Method;
 import java.util.*;
 import java.util.function.Supplier;
 
@@ -123,6 +125,25 @@ public final class ToolHelper {
     public static final Supplier<ItemStack> SUPPLY_POWER_UNIT_EV = () -> MetaItems.POWER_UNIT_EV.getStackForm();
     public static final Supplier<ItemStack> SUPPLY_POWER_UNIT_IV = () -> MetaItems.POWER_UNIT_IV.getStackForm();
 
+    // for retrieving the silk touch drop from a block. Cannot be Access-Transformed because it is a Forge method.
+    private static final MethodHandle GET_SILK_TOUCH_DROP;
+
+    static {
+        try {
+            // archaic way to get around access violations for method handles.
+            // this was improved in Java 9 with MethodHandles.privateLookupIn(),
+            // but that does not exist in Java 8, so we have to unreflect instead.
+            Method method = ObfuscationReflectionHelper.findMethod(Block.class, "func_180643_i", ItemStack.class, IBlockState.class);
+            method.setAccessible(true);
+            GET_SILK_TOUCH_DROP = MethodHandles.lookup().unreflect(method);
+            method.setAccessible(false);
+        } catch (IllegalAccessException e) {
+            throw new IllegalStateException(e);
+        }
+    }
+
+    private ToolHelper() {/**/}
+
     /**
      * @return finds the registered crafting symbol with the tool
      */
@@ -148,7 +169,7 @@ public final class ToolHelper {
         return stack.getOrCreateSubCompound(TOOL_TAG_KEY);
     }
 
-    public static NBTTagCompound getBehavioursTag(ItemStack stack) {
+    public static NBTTagCompound getBehaviorsTag(ItemStack stack) {
         return stack.getOrCreateSubCompound(BEHAVIOURS_TAG_KEY);
     }
 
@@ -179,7 +200,7 @@ public final class ToolHelper {
      * @param stack  stack to be damaged
      * @param entity entity that has damaged this stack
      */
-    public static void damageItemWhenCrafting(ItemStack stack, EntityLivingBase entity) {
+    public static void damageItemWhenCrafting(@Nonnull ItemStack stack, @Nullable EntityLivingBase entity) {
         int damage = 2;
         if (stack.getItem() instanceof IGTTool) {
             damage = ((IGTTool) stack.getItem()).getToolStats().getToolDamagePerCraft(stack);
@@ -200,7 +221,7 @@ public final class ToolHelper {
      * @param stack  stack to be damaged
      * @param entity entity that has damaged this stack
      */
-    public static void damageItem(ItemStack stack, EntityLivingBase entity) {
+    public static void damageItem(@Nonnull ItemStack stack, @Nullable EntityLivingBase entity) {
         damageItem(stack, entity, 1);
     }
 
@@ -212,21 +233,22 @@ public final class ToolHelper {
      * @param entity entity that has damaged this stack
      * @param damage how much damage the stack will take
      */
-    public static void damageItem(ItemStack stack, EntityLivingBase entity, int damage) {
+    public static void damageItem(@Nonnull ItemStack stack, @Nullable EntityLivingBase entity, int damage) {
         if (!(stack.getItem() instanceof IGTTool)) {
-            stack.damageItem(damage, entity);
+            if (entity != null) stack.damageItem(damage, entity);
         } else {
             if (stack.getTagCompound() != null && stack.getTagCompound().getBoolean(UNBREAKABLE_KEY)) {
                 return;
             }
             IGTTool tool = (IGTTool) stack.getItem();
             if (!(entity instanceof EntityPlayer) || !((EntityPlayer) entity).capabilities.isCreativeMode) {
+                Random random = entity == null ? GTValues.RNG : entity.getRNG();
                 if (tool.isElectric()) {
                     int electricDamage = damage * ConfigHolder.machines.energyUsageMultiplier;
                     IElectricItem electricItem = stack.getCapability(GregtechCapabilities.CAPABILITY_ELECTRIC_ITEM, null);
                     if (electricItem != null) {
                         electricItem.discharge(electricDamage, tool.getElectricTier(), true, false, false);
-                        if (electricItem.getCharge() > 0 && entity.getRNG().nextInt(100) > ConfigHolder.tools.rngDamageElectricTools) {
+                        if (electricItem.getCharge() > 0 && random.nextInt(100) > ConfigHolder.tools.rngDamageElectricTools) {
                             return;
                         }
                     } else {
@@ -236,7 +258,7 @@ public final class ToolHelper {
                 int unbreakingLevel = EnchantmentHelper.getEnchantmentLevel(Enchantments.UNBREAKING, stack);
                 int negated = 0;
                 for (int k = 0; unbreakingLevel > 0 && k < damage; k++) {
-                    if (EnchantmentDurability.negateDamage(stack, unbreakingLevel, entity.getRNG())) {
+                    if (EnchantmentDurability.negateDamage(stack, unbreakingLevel, random)) {
                         negated++;
                     }
                 }
@@ -251,10 +273,14 @@ public final class ToolHelper {
                 stack.setItemDamage(newDurability);
                 if (newDurability > stack.getMaxDamage()) {
                     if (entity instanceof EntityPlayer) {
-                        EntityPlayer entityplayer = (EntityPlayer) entity;
-                        entityplayer.addStat(StatList.getObjectBreakStats(stack.getItem()));
+                        StatBase stat = StatList.getObjectBreakStats(stack.getItem());
+                        if (stat != null) {
+                            ((EntityPlayer) entity).addStat(stat);
+                        }
                     }
-                    entity.renderBrokenItemStack(stack);
+                    if (entity != null) {
+                        entity.renderBrokenItemStack(stack);
+                    }
                     stack.shrink(1);
                 }
             }
@@ -324,11 +350,11 @@ public final class ToolHelper {
     }
 
     public static AoESymmetrical getMaxAoEDefinition(ItemStack stack) {
-        return AoESymmetrical.readMax(getBehavioursTag(stack));
+        return AoESymmetrical.readMax(getBehaviorsTag(stack));
     }
 
     public static AoESymmetrical getAoEDefinition(ItemStack stack) {
-        return AoESymmetrical.read(getBehavioursTag(stack), getMaxAoEDefinition(stack));
+        return AoESymmetrical.read(getBehaviorsTag(stack), getMaxAoEDefinition(stack));
     }
 
     /**
@@ -346,11 +372,11 @@ public final class ToolHelper {
                 }
 
                 remainingUses--;
-                if(stack.getItem() instanceof IGTTool && !((IGTTool) stack.getItem()).isElectric() && remainingUses == 0) {
+                if (stack.getItem() instanceof IGTTool && !((IGTTool) stack.getItem()).isElectric() && remainingUses == 0) {
                     return true;
                 }
                 // If the tool is an electric tool, catch the tool breaking and cancel the remaining AOE
-                else if(!player.getHeldItemMainhand().isItemEqualIgnoreDurability(stack)) {
+                else if (!player.getHeldItemMainhand().isItemEqualIgnoreDurability(stack)) {
                     return true;
                 }
             }
@@ -480,9 +506,7 @@ public final class ToolHelper {
             }
         }
         if (toolClasses.contains(ToolClasses.CROWBAR)) {
-            if (block instanceof BlockRailBase || material == net.minecraft.block.material.Material.CIRCUITS) {
-                return true;
-            }
+            return block instanceof BlockRailBase || material == net.minecraft.block.material.Material.CIRCUITS;
         }
         return false;
     }
@@ -537,8 +561,8 @@ public final class ToolHelper {
      * Tree Felling routine. Improved from GTI, GTCE, TiCon and other tree felling solutions:
      * - Works with weird Oak Trees (thanks to Syrcan for pointing out)
      * - Brought back tick-spread behaviour:
-     *     - Tree-felling is validated in the same tick as the stem being broken
-     *     - 1 block broken per tick, akin to chorus fruit
+     * - Tree-felling is validated in the same tick as the stem being broken
+     * - 1 block broken per tick, akin to chorus fruit
      * - Fix cheating durability loss
      * - Eliminates leaves as well as logs
      */
@@ -554,7 +578,7 @@ public final class ToolHelper {
      */
     public static void applyHammerDropConversion(ItemStack tool, IBlockState state, List<ItemStack> drops, int fortune, float dropChance, Random random) {
         if (tool.getItem().getToolClasses(tool).contains(ToolClasses.HARD_HAMMER) || EnchantmentHelper.getEnchantmentLevel(EnchantmentHardHammer.INSTANCE, tool) > 0) {
-            ItemStack silktouchDrop = GTVisibilityHackBlock.getSilkTouchDrop(state.getBlock(), state);
+            ItemStack silktouchDrop = getSilkTouchDrop(state);
             if (!silktouchDrop.isEmpty()) {
                 // Stack lists can be immutable going into Recipe#matches barring no rewrites
                 List<ItemStack> dropAsList = Collections.singletonList(silktouchDrop);
@@ -632,6 +656,7 @@ public final class ToolHelper {
 
     /**
      * Shearing a Block.
+     *
      * @return -1 if not shearable, otherwise return 0 or 1, 0 if tool is now broken.
      */
     public static int shearBlockRoutine(EntityPlayerMP player, ItemStack tool, BlockPos pos) {
@@ -642,7 +667,7 @@ public final class ToolHelper {
                 IShearable shearable = (IShearable) state.getBlock();
                 if (shearable.isShearable(tool, world, pos)) {
                     List<ItemStack> shearedDrops = shearable.onSheared(tool, world, pos, EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, tool));
-                    boolean relocateMinedBlocks = getBehavioursTag(tool).getBoolean(RELOCATE_MINED_BLOCKS_KEY);
+                    boolean relocateMinedBlocks = getBehaviorsTag(tool).getBoolean(RELOCATE_MINED_BLOCKS_KEY);
                     Iterator<ItemStack> iter = shearedDrops.iterator();
                     while (iter.hasNext()) {
                         ItemStack stack = iter.next();
@@ -677,5 +702,16 @@ public final class ToolHelper {
         return successful;
     }
 
-    private ToolHelper() { }
+    /**
+     * @param state the BlockState of the block
+     * @return the silk touch drop
+     */
+    @Nonnull
+    public static ItemStack getSilkTouchDrop(@Nonnull IBlockState state) {
+        try {
+            return (ItemStack) GET_SILK_TOUCH_DROP.invokeExact(state.getBlock(), state);
+        } catch (Throwable ignored) {
+            return ItemStack.EMPTY;
+        }
+    }
 }

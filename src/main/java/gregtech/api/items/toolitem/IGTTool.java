@@ -125,7 +125,7 @@ public interface IGTTool extends ItemUIFactory, IAEWrench, IToolWrench, IToolHam
     default ItemStack getRaw() {
         ItemStack stack = new ItemStack(get());
         getToolTag(stack);
-        getBehavioursTag(stack);
+        getBehaviorsTag(stack);
         return stack;
     }
 
@@ -160,7 +160,7 @@ public interface IGTTool extends ItemUIFactory, IAEWrench, IToolWrench, IToolHam
         });
 
         // Set behaviours
-        NBTTagCompound behaviourTag = getBehavioursTag(stack);
+        NBTTagCompound behaviourTag = getBehaviorsTag(stack);
         getToolStats().getBehaviors().forEach(behavior -> behavior.addBehaviorNBT(stack, behaviourTag));
 
         AoESymmetrical aoeDefinition = getToolStats().getAoEDefinition(stack);
@@ -174,7 +174,7 @@ public interface IGTTool extends ItemUIFactory, IAEWrench, IToolWrench, IToolHam
             behaviourTag.setInteger(AOE_LAYER_KEY, aoeDefinition.layer);
         }
 
-        if (material.hasFlag(MaterialFlags.IS_MAGNETIC)) {
+        if (toolProperty.isMagnetic()) {
             behaviourTag.setBoolean(RELOCATE_MINED_BLOCKS_KEY, true);
         }
 
@@ -333,7 +333,7 @@ public interface IGTTool extends ItemUIFactory, IAEWrench, IToolWrench, IToolHam
     }
 
     default AoESymmetrical getMaxAoEDefinition(ItemStack stack) {
-        return AoESymmetrical.readMax(getBehavioursTag(stack));
+        return AoESymmetrical.readMax(getBehaviorsTag(stack));
     }
 
     default AoESymmetrical getAoEDefinition(ItemStack stack) {
@@ -372,6 +372,7 @@ public interface IGTTool extends ItemUIFactory, IAEWrench, IToolWrench, IToolHam
             if (result != 0) {
                 // prevent exploits with instantly breakable blocks
                 IBlockState state = player.world.getBlockState(pos);
+                state = state.getBlock().getActualState(state, player.world, pos);
                 boolean effective = false;
                 for (String type : getToolClasses(stack)) {
                     if (state.getBlock().isToolEffective(type, state)) {
@@ -666,7 +667,7 @@ public interface IGTTool extends ItemUIFactory, IAEWrench, IToolWrench, IToolHam
                     aoeDefinition.column * 2 + 1, aoeDefinition.row * 2 + 1, aoeDefinition.layer + 1));
         }
 
-        NBTTagCompound behaviorsTag = getBehavioursTag(stack);
+        NBTTagCompound behaviorsTag = getBehaviorsTag(stack);
         if (behaviorsTag.getBoolean(RELOCATE_MINED_BLOCKS_KEY)) {
             if (!addedBehaviorNewLine) {
                 addedBehaviorNewLine = true;
@@ -733,7 +734,7 @@ public interface IGTTool extends ItemUIFactory, IAEWrench, IToolWrench, IToolHam
             case "enchantment.cofhcore.smelting": // cofhcore
             case "enchantment.as.smelting": // astral sorcery
                 // block autosmelt enchants from AoE and Tree-Felling tools
-                return getToolStats().getAoEDefinition(stack) == AoESymmetrical.none() && !getBehavioursTag(stack).hasKey(TREE_FELLING_KEY);
+                return getToolStats().getAoEDefinition(stack) == AoESymmetrical.none() && !getBehaviorsTag(stack).hasKey(TREE_FELLING_KEY);
         }
 
         // Block Mending and Unbreaking on Electric tools
@@ -787,7 +788,8 @@ public interface IGTTool extends ItemUIFactory, IAEWrench, IToolWrench, IToolHam
 
     // Sound Playing
     default void playCraftingSound(EntityPlayer player, ItemStack stack) {
-        if (ConfigHolder.client.toolCraftingSounds && getSound() != null) {
+        // player null check for things like auto-crafters
+        if (ConfigHolder.client.toolCraftingSounds && getSound() != null && player != null) {
             if (canPlaySound(stack)) {
                 setLastCraftingSoundTime(stack);
                 player.getEntityWorld().playSound(null, player.posX, player.posY, player.posZ, getSound(), SoundCategory.PLAYERS, 1F, 1F);
@@ -810,7 +812,7 @@ public interface IGTTool extends ItemUIFactory, IAEWrench, IToolWrench, IToolHam
     }
 
     default ModularUI createUI(PlayerInventoryHolder holder, EntityPlayer entityPlayer) {
-        NBTTagCompound tag = getBehavioursTag(holder.getCurrentItem());
+        NBTTagCompound tag = getBehaviorsTag(holder.getCurrentItem());
         AoESymmetrical defaultDefinition = getMaxAoEDefinition(holder.getCurrentItem());
         return ModularUI.builder(GuiTextures.BORDERED_BACKGROUND, 120, 80)
                 .label(6, 10, "item.gt.tool.aoe.columns")
@@ -841,11 +843,11 @@ public interface IGTTool extends ItemUIFactory, IAEWrench, IToolWrench, IToolHam
                     holder.markAsDirty();
                 }))
                 .widget(new DynamicLabelWidget(23, 65, () ->
-                        Integer.toString(1 + 2 * AoESymmetrical.getColumn(getBehavioursTag(holder.getCurrentItem()), defaultDefinition))))
+                        Integer.toString(1 + 2 * AoESymmetrical.getColumn(getBehaviorsTag(holder.getCurrentItem()), defaultDefinition))))
                 .widget(new DynamicLabelWidget(58, 65, () ->
-                        Integer.toString(1 + 2 * AoESymmetrical.getRow(getBehavioursTag(holder.getCurrentItem()), defaultDefinition))))
+                        Integer.toString(1 + 2 * AoESymmetrical.getRow(getBehaviorsTag(holder.getCurrentItem()), defaultDefinition))))
                 .widget(new DynamicLabelWidget(93, 65, () ->
-                        Integer.toString(1 + AoESymmetrical.getLayer(getBehavioursTag(holder.getCurrentItem()), defaultDefinition))))
+                        Integer.toString(1 + AoESymmetrical.getLayer(getBehaviorsTag(holder.getCurrentItem()), defaultDefinition))))
                 .build(holder, entityPlayer);
     }
 

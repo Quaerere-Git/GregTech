@@ -10,7 +10,7 @@ public class MaterialProperties {
 
     private static final Set<PropertyKey<?>> baseTypes = new HashSet<>(Arrays.asList(
             PropertyKey.PLASMA, PropertyKey.FLUID, PropertyKey.DUST,
-            PropertyKey.INGOT, PropertyKey.GEM
+            PropertyKey.INGOT, PropertyKey.GEM, PropertyKey.EMPTY
     ));
 
     @SuppressWarnings("unused")
@@ -42,11 +42,13 @@ public class MaterialProperties {
         if (hasProperty(key))
             throw new IllegalArgumentException("Material Property " + key.toString() + " already registered!");
         propertyMap.put(key, value);
+        propertyMap.remove(PropertyKey.EMPTY);
     }
 
     public <T extends IMaterialProperty> void ensureSet(PropertyKey<T> key, boolean verify) {
         if (!hasProperty(key)) {
             propertyMap.put(key, key.constructDefault());
+            propertyMap.remove(PropertyKey.EMPTY);
             if (verify) verify();
         }
     }
@@ -61,6 +63,15 @@ public class MaterialProperties {
             oldList = new ArrayList<>(propertyMap.values());
             oldList.forEach(p -> p.verifyProperty(this));
         } while (oldList.size() != propertyMap.size());
+
+        if (propertyMap.keySet().stream().noneMatch(baseTypes::contains)) {
+            if (propertyMap.isEmpty()) {
+                if (ConfigHolder.misc.debug) {
+                    GTLog.logger.debug("Creating empty placeholder Material {}", material);
+                }
+                propertyMap.put(PropertyKey.EMPTY, PropertyKey.EMPTY.constructDefault());
+            } else throw new IllegalArgumentException("Material must have at least one of: " + baseTypes + " specified!");
+        }
     }
 
     public void setMaterial(Material material) {
