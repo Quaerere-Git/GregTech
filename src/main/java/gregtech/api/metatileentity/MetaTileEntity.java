@@ -208,6 +208,11 @@ public abstract class MetaTileEntity implements ICoverable, IVoidable {
         return true;
     }
 
+    @SideOnly(Side.CLIENT)
+    public Pair<TextureAtlasSprite, Integer> getParticleTexture() {
+        return Pair.of(TextureUtils.getMissingSprite(), 0xFFFFFF);
+    }
+
     /**
      * ItemStack currently being rendered by this meta tile entity
      * Use this to obtain itemstack-specific data like contained fluid, painting color
