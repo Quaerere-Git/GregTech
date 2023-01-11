@@ -905,6 +905,12 @@ public class MachineRecipeLoader {
         ModHandler.addShapelessNBTClearingRecipe("cell_nbt_tungstensteel", MetaItems.FLUID_CELL_LARGE_TUNGSTEN_STEEL.getStackForm(), MetaItems.FLUID_CELL_LARGE_TUNGSTEN_STEEL.getStackForm());
         ModHandler.addShapelessNBTClearingRecipe("cell_vial_nbt", MetaItems.FLUID_CELL_GLASS_VIAL.getStackForm(), MetaItems.FLUID_CELL_GLASS_VIAL.getStackForm());
 
+        // Batteries
+        ModHandler.addShapelessNBTClearingRecipe("ev_battery_nbt", MetaItems.LAPOTRON_CRYSTAL.getStackForm(), MetaItems.LAPOTRON_CRYSTAL.getStackForm());
+        ModHandler.addShapelessNBTClearingRecipe("iv_battery_nbt", MetaItems.ENERGY_LAPOTRONIC_ORB.getStackForm(), MetaItems.ENERGY_LAPOTRONIC_ORB.getStackForm());
+        ModHandler.addShapelessNBTClearingRecipe("luv_battery_nbt", MetaItems.ENERGY_LAPOTRONIC_ORB_CLUSTER.getStackForm(), MetaItems.ENERGY_LAPOTRONIC_ORB_CLUSTER.getStackForm());
+        ModHandler.addShapelessNBTClearingRecipe("zpm_battery_nbt", MetaItems.ENERGY_MODULE.getStackForm(), MetaItems.ENERGY_MODULE.getStackForm());
+        ModHandler.addShapelessNBTClearingRecipe("uv_battery_nbt", MetaItems.ENERGY_CLUSTER.getStackForm(), MetaItems.ENERGY_CLUSTER.getStackForm());
 
         //Jetpacks
         ModHandler.addShapelessRecipe("fluid_jetpack_clear", SEMIFLUID_JETPACK.getStackForm(), SEMIFLUID_JETPACK.getStackForm());

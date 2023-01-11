@@ -182,6 +182,12 @@ public class SeparationRecipes {
                 .chancedOutput(dust, Plutonium241, 2000, 300)
                 .buildAndRegister();
 
+        CENTRIFUGE_RECIPES.recipeBuilder().duration(1600).EUt(1280)
+                .input(dust, NaquadahEnriched)
+                .chancedOutput(dustTiny, Naquadria, 3000, 450)
+                .chancedOutput(dust, Naquadah, 2000, 300)
+                .buildAndRegister();
+
         CENTRIFUGE_RECIPES.recipeBuilder().duration(320).EUt(20)
                 .input(dust, Endstone)
                 .chancedOutput(new ItemStack(Blocks.SAND), 9000, 300)
